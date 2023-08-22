@@ -26,6 +26,7 @@ app.use(handleError);
 server.listen(process.env.PORT, async () => {
   try {
     const isConnected = await sequelize.authenticate();
+    //const isConnected = await sequelize.sync({ force: true });
     isConnected && console.log(`Server is running on port ${process.env.PORT}`);
   } catch (err) {
     console.log(`Oops. Something went wrong: ${err}`);
