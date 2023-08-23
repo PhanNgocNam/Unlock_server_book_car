@@ -1,40 +1,65 @@
-'use strict';
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('users', {
+  async up(queryInterface, DataTypes) {
+    await queryInterface.createTable("users", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: DataTypes.INTEGER,
       },
       userUuid: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: DataTypes.UUIDV4,
       },
       email: {
-        type: Sequelize.STRING
+        unique: true,
+        allowNull: false,
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: { msg: "Email must not be empty!" },
+        },
       },
       password: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: { msg: "Password must not empty!" },
+        },
+      },
+      fullname: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: { msg: "Fullname most not empty!" },
+        },
       },
       permissions: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        defaultValue: 9,
       },
       hashPassword: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING,
+      },
+      isDeleted: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: DataTypes.DATE,
+      },
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('users');
-  }
+  async down(queryInterface, DataTypes) {
+    await queryInterface.dropTable("users");
+  },
 };

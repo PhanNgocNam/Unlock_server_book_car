@@ -19,15 +19,21 @@ module.exports = (sequelize, DataTypes) => {
     }) {
       // define association here
       this.belongsTo(user, { foreignKey: "user_id", as: "user" });
-      this.belongsTo(car_brand, { foreignKey: "car_id", as: "car_brand" });
-      this.belongsTo(car_model, { foreignKey: "car_id", as: "car_model" });
-      this.belongsTo(car_seri, { foreignKey: "car_id", as: "car_seri" });
+      this.belongsTo(car_brand, {
+        foreignKey: "car_brand_id",
+        as: "car_brand",
+      });
+      this.belongsTo(car_model, {
+        foreignKey: "car_model_id",
+        as: "car_model",
+      });
+      this.belongsTo(car_seri, { foreignKey: "car_seri_id", as: "car_seri" });
       this.belongsTo(vehicle_type, {
-        foreignKey: "car_id",
+        foreignKey: "vehicle_type_id",
         as: "vehicle_type",
       });
       this.belongsTo(license_plate_type, {
-        foreignKey: "car_id",
+        foreignKey: "car_license_id",
         as: "license_plate_type",
       });
       this.hasOne(driver, { foreignKey: "car_id", as: "driver" });
