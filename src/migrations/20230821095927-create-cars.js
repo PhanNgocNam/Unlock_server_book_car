@@ -1,31 +1,57 @@
-'use strict';
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('cars', {
+  async up(queryInterface, DataTypes) {
+    await queryInterface.createTable("cars", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: DataTypes.INTEGER,
       },
       carUuid: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: DataTypes.UUIDV4,
       },
       currentLocationInHCM: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      isDeleted: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+      },
+      car_brand_id: {
+        type: DataTypes.INTEGER,
+      },
+      car_model_id: {
+        type: DataTypes.INTEGER,
+      },
+      car_seri_id: {
+        type: DataTypes.INTEGER,
+      },
+      vehicle_type_id: {
+        type: DataTypes.INTEGER,
+      },
+      car_license_id: {
+        type: DataTypes.INTEGER,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: DataTypes.DATE,
+      },
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('cars');
-  }
+  async down(queryInterface, DataTypes) {
+    await queryInterface.dropTable("cars");
+  },
 };
