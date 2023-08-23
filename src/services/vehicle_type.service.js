@@ -23,3 +23,17 @@ module.exports.vehicleTypeService = (body) => {
     }
   });
 };
+module.exports.getAllvehicleTypeService = ({ ...query }) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: true, rest: true };
+      const response = await db.vehicle_type.findAll({
+        where: query,
+        ...queries,
+      });
+      resolve(response);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+  });
+};
