@@ -23,3 +23,17 @@ module.exports.licensePlateTypeService = (body) => {
     }
   });
 };
+module.exports.getAlllicensePlateTypeService = ({ ...query }) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: true, rest: true };
+      const response = await db.license_plate_type.findAll({
+        where: query,
+        ...queries,
+      });
+      resolve(response);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+  });
+};

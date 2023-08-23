@@ -21,3 +21,16 @@ module.exports.carBrandService = (body) => {
     }
   });
 };
+module.exports.getAllcarBrandService = ({ ...query }) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: true, rest: true };
+
+      const response = await db.car_brand.findAll({ where: query, ...queries });
+
+      resolve(response);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+  });
+};

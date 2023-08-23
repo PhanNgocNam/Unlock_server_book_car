@@ -21,3 +21,14 @@ module.exports.carSeriService = (body) => {
     }
   });
 };
+module.exports.getAllcarSeriService = ({ ...query }) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: true, rest: true };
+      const response = await db.car_seri.findAll({ where: query, ...queries });
+      resolve(response);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+  });
+};
