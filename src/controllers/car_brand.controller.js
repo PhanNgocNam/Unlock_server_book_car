@@ -5,9 +5,9 @@ const {
   getAllcarBrandService,
 } = require("../services/car_brand.service");
 module.exports.carBrandController = (req, res, next) => {
-  const { carBrandName } = req.body;
+  const { CarBrand } = req.body;
 
-  carBrandService(carBrandName).then(
+  carBrandService(CarBrand).then(
     (carB) => {
       return res.json(carB);
     },
