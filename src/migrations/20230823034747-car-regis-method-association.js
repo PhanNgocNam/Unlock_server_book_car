@@ -18,6 +18,7 @@ module.exports = {
         field: "id",
       },
     });
+
     queryInterface.addConstraint("car_register_methods", {
       fields: ["regis_id"],
       type: "foreign key",
@@ -36,5 +37,15 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
+    queryInterface.removeConstraint(
+      "car_register_methods",
+      "car_register_method_association_regis"
+    );
+    queryInterface.removeConstraint(
+      "car_register_methods",
+      "car_register_method_association_car"
+    );
+
+    // console.log("pass");
   },
 };

@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         allowNull: false,
         type: DataTypes.STRING,
+        defaultValue: "null",
         validate: {
           notEmpty: { msg: "Email must not be empty!" },
         },
@@ -37,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       fullname: {
         allowNull: false,
         type: DataTypes.STRING,
+        defaultValue: "null",
         validate: {
           notEmpty: { msg: "Fullname most not empty!" },
         },
@@ -46,10 +48,17 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         defaultValue: 9,
       },
-      hashPassword: {
+      phoneNumber: {
+        allowNull: false,
         type: DataTypes.STRING,
+        defaultValue: "null",
       },
       isDeleted: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
+      isActive: {
         allowNull: false,
         type: DataTypes.INTEGER,
         defaultValue: 0,
