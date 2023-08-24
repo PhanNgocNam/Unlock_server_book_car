@@ -1,13 +1,12 @@
 const { Exeptions } = require("../utils/ExeptionError");
 const erorCode = require("../exeption_code");
 const {
-  vehicleTypeService,
-  getAllvehicleTypeService,
-} = require("../services/vehicle_type.service");
-module.exports.vehicleTypeController = (req, res, next) => {
-  const { VehicleType } = req.body;
+  RegistrationmethodsService,
+} = require("../services/registration_methods.service");
+module.exports.RegistrationmethodsController = (req, res, next) => {
+  const { RegiterMethod } = req.body;
 
-  vehicleTypeService(VehicleType).then(
+  RegistrationmethodsService(RegiterMethod).then(
     (car) => {
       return res.json(car);
     },
