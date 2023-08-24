@@ -27,9 +27,23 @@ module.exports.getAllRegistrationmethodsService = ({ ...query }) => {
   return new Promise(async (resolve, reject) => {
     try {
       const queries = { raw: true, rest: true };
-      const response = await db.vehicle_type.findAll({
+      const response = await db.registration_method.findAll({
         where: query,
         ...queries,
+      });
+      resolve(response);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+  });
+};
+module.exports.getOneRegistrationmethodsService = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: true, rest: true };
+      queries.id = id;
+      const response = await db.registration_method.findAndCountAll({
+        where: { registrationMethodUuid: id },
       });
       resolve(response);
     } catch (err) {
