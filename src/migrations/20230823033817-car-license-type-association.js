@@ -27,5 +27,9 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
+    queryInterface.removeConstraint(
+      "cars",
+      "car_license_plate_types_association"
+    );
   },
 };

@@ -1,6 +1,5 @@
 {
   "development": {
-
     "username": "sql_ult_unlockca",
     "password": "ReJNzy82FMGGxX7A",
     "database": "sql_ult_unlockca",
@@ -8,7 +7,6 @@
     "port": "3308",
     "dialect": "mysql",
     "timezone": "+07:00"
-
   },
   "test": {
     "username": "root",
