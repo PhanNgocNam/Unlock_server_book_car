@@ -36,3 +36,25 @@ module.exports.createNewCarService = async (body) => {
     }
   });
 };
+module.exports.getAllCarService = ({ ...query }) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const cars = await db.cars.findAll({
+        include: [
+          "car_brand",
+          "car_model",
+          "vehicle_type",
+          "license_plate_type",
+          "vehicle_type",
+          "car_seri",
+          "user",
+          "regis",
+        ],
+      });
+      // db.cars.add;
+      resolve(cars);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+  });
+};
