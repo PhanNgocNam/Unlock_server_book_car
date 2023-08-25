@@ -43,6 +43,26 @@ module.exports = (sequelize, DataTypes) => {
         as: "regis",
       });
     }
+
+    toJSON() {
+      return {
+        ...this.get(),
+        car_seri: this.get("car_seri").carSeriName,
+        license_plate_type: this.get("license_plate_type").licensePlateTypeName,
+        vehicle_type: this.get("vehicle_type").vehicleTypeName,
+        car_model: this.get("car_model").carModelName,
+        car_brand: this.get("car_brand").carBrandName,
+        regis: this.get("regis")?.map(
+          (regis_method) => regis_method.registerMethodName
+        ),
+        user_id: undefined,
+        car_brand_id: undefined,
+        car_model_id: undefined,
+        car_seri_id: undefined,
+        vehicle_type_id: undefined,
+        car_license_id: undefined,
+      };
+    }
   }
   cars.init(
     {
