@@ -34,3 +34,17 @@ module.exports.getAllcarBrandService = ({ ...query }) => {
     }
   });
 };
+module.exports.getOneCarBrandService = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: true, rest: true };
+      queries.id = id;
+      const response = await db.car_brand.findOne({
+        where: { carBrandUuid: id },
+      });
+      resolve(response);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+  });
+};
