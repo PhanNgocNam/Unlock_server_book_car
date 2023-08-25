@@ -5,7 +5,7 @@ module.exports.vehicleTypeService = (body) => {
   return new Promise(async (resolve, reject) => {
     try {
       const found = await db.vehicle_type.count({
-        where: { vehicleTypeName: body },
+        where: { vehicleTypeName: body.VehicleType },
       });
 
       if (found)
@@ -14,7 +14,7 @@ module.exports.vehicleTypeService = (body) => {
           message: "vehicleTypeName has been used!",
         });
       const vehicleTypeName = await db.vehicle_type.create({
-        vehicleTypeName: body,
+        vehicleTypeName: body.VehicleType,
       });
 
       resolve(vehicleTypeName);

@@ -5,7 +5,7 @@ module.exports.carBrandService = (body) => {
   return new Promise(async (resolve, reject) => {
     try {
       const found = await db.car_brand.count({
-        where: { carBrandName: body },
+        where: { carBrandName: body.CarBrand },
       });
 
       if (found)
@@ -13,7 +13,9 @@ module.exports.carBrandService = (body) => {
           status: errorCode.carBrandName_has_been_used,
           message: "carBrandName has been used!",
         });
-      const car_brand = await db.car_brand.create({ carBrandName: body });
+      const car_brand = await db.car_brand.create({
+        carBrandName: body.CarBrand,
+      });
 
       resolve(car_brand);
     } catch (err) {

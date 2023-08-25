@@ -6,9 +6,9 @@ const {
   getOneCarSeriService,
 } = require("../services/car_seri.service");
 module.exports.carseriController = (req, res, next) => {
-  const { CarSeri } = req.body;
+  // const { CarSeri } = req.body;
 
-  carSeriService(CarSeri).then(
+  carSeriService(req.body).then(
     (carM) => {
       return res.json(carM);
     },
