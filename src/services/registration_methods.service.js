@@ -42,7 +42,7 @@ module.exports.getOneRegistrationmethodsService = (id) => {
     try {
       const queries = { raw: true, rest: true };
       queries.id = id;
-      const response = await db.registration_method.findAndCountAll({
+      const response = await db.registration_method.findOne({
         where: { registrationMethodUuid: id },
       });
       resolve(response);

@@ -37,3 +37,17 @@ module.exports.getAllvehicleTypeService = ({ ...query }) => {
     }
   });
 };
+module.exports.getOneVehicleTypeService = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: true, rest: true };
+      queries.id = id;
+      const response = await db.vehicle_type.findOne({
+        where: { vehicleTypeUuid: id },
+      });
+      resolve(response);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+  });
+};
