@@ -6,9 +6,9 @@ const {
   getOneRegistrationmethodsService,
 } = require("../services/registration_methods.service");
 module.exports.RegistrationmethodsController = (req, res, next) => {
-  const { RegiterMethod } = req.body;
+  // const { RegiterMethod } = req.body;
 
-  RegistrationmethodsService(RegiterMethod).then(
+  RegistrationmethodsService(req.body).then(
     (car) => {
       return res.json(car);
     },

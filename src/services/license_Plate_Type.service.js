@@ -5,7 +5,7 @@ module.exports.licensePlateTypeService = (body) => {
   return new Promise(async (resolve, reject) => {
     try {
       const found = await db.license_plate_type.count({
-        where: { licensePlateTypeName: body },
+        where: { licensePlateTypeName: body.LicensePlateType },
       });
 
       if (found)
@@ -14,7 +14,7 @@ module.exports.licensePlateTypeService = (body) => {
           message: "licensePlateTypeName has been used!",
         });
       const licensePlateTypeName = await db.license_plate_type.create({
-        licensePlateTypeName: body,
+        licensePlateTypeName: body.LicensePlateType,
       });
 
       resolve(licensePlateTypeName);

@@ -6,9 +6,9 @@ const {
   getOneVehicleTypeService,
 } = require("../services/vehicle_type.service");
 module.exports.vehicleTypeController = (req, res, next) => {
-  const { VehicleType } = req.body;
+  // const { VehicleType } = req.body;
 
-  vehicleTypeService(VehicleType).then(
+  vehicleTypeService(req.body).then(
     (car) => {
       return res.json(car);
     },
