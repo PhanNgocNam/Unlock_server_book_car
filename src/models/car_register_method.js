@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class car_register_method extends Model {
     /**
@@ -13,12 +11,20 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  car_register_method.init({
-    car_id: DataTypes.INTEGER,
-    regis_id: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'car_register_method',
-  });
+  car_register_method.init(
+    {
+      res_car_uuid: {
+        type: DataTypes.STRING,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+      },
+      car_id: DataTypes.INTEGER,
+      regis_id: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "car_register_method",
+    }
+  );
   return car_register_method;
 };

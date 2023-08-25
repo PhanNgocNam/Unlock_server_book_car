@@ -58,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
-      isActive: {
+      isVerify: {
         allowNull: false,
         type: DataTypes.INTEGER,
         defaultValue: 0,
