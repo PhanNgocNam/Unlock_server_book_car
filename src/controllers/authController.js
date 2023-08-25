@@ -8,6 +8,7 @@ const { Exeptions } = require("../utils/ExeptionError");
 const { query } = require("express-validator");
 
 const { vi } = require("../utils/vi");
+const { sequelize } = require("../models");
 
 module.exports.authController = async (req, res, next) => {
   const { email, password } = req.body;
@@ -39,9 +40,13 @@ module.exports.checkLoggedOut = (req, res, next) => {
 
 module.exports.getVerifyAccount = async (req, res, next) => {
   try {
-    await verifyAccount(req.params.token).then(() => {
+    await verifyAccount(req.params.token).then(async (user) => {
+      console.log(user);
+      await sequelize.query(
+        `UPDATE users SET isVerify = 1 WHERE id = ${user.userID}`
+      );
       res.json(vi.transSuccess.account_actived);
-      res.redirect("/api/v1/auth/login");
+      // res.redirect("/api/v1/auth/login");
     });
   } catch (error) {
     next(new Exeptions(error.message, error.status));

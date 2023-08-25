@@ -3,7 +3,8 @@ const errorCode = require("../exeption_code/index");
 const { sendMail } = require("../utils/mailer");
 const { vi } = require("../utils/vi");
 const jwt = require("jsonwebtoken");
-const { bcrypt } = require("bcrypt");
+const bcryt = require("bcrypt");
+
 
 module.exports.authService = async (email, password) => {
   const found = await db.user.count({ where: { email } });
@@ -14,13 +15,12 @@ module.exports.authService = async (email, password) => {
         message: "Incorrect email ,or you haven't registed yet!",
       });
     const admin = await db.user.findOne({ where: { email } });
-    if (admin.password !== password)
-      return reject({ status: 400, message: "Incorrect password!" });
+    const result = await bcrypt.compare(password, admin.password);
+    if (!result) return reject({ status: 400, message: "Incorrect password!" });
     resolve(admin.dataValues);
   });
 };
 
-const saltRounds = 10;
 module.exports.registerUserService = (email, password, protocol, host) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -40,9 +40,10 @@ module.exports.registerUserService = (email, password, protocol, host) => {
           message: vi.transError.account_in_use,
         });
       }
-      // const hashedPassword = bcrypt.hashSync(password, saltRounds);
-      // console.log(hashedPassword);
-      const user = await db.user.create({ email, password });
+      // const hashedPassword = await bcrypt.hash(password, saltRounds);
+      const salt = await bcryt.genSalt(10);
+      const hashedPassword = await bcryt.hash(password, salt);
+      const user = await db.user.create({ email, password: hashedPassword });
       //send mail
       const accessToken = jwt.sign(
         {
