@@ -5,6 +5,7 @@ const { vi } = require("../utils/vi");
 const jwt = require("jsonwebtoken");
 const bcryt = require("bcrypt");
 
+
 module.exports.authService = async (email, password) => {
   const found = await db.user.count({ where: { email } });
   return new Promise(async (resolve, reject) => {
@@ -14,8 +15,8 @@ module.exports.authService = async (email, password) => {
         message: "Incorrect email ,or you haven't registed yet!",
       });
     const admin = await db.user.findOne({ where: { email } });
-    if (admin.password !== password)
-      return reject({ status: 400, message: "Incorrect password!" });
+    const result = await bcrypt.compare(password, admin.password);
+    if (!result) return reject({ status: 400, message: "Incorrect password!" });
     resolve(admin.dataValues);
   });
 };
