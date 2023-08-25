@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: DataTypes.UUIDV4,
       },
+      registerMethodName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       isDeleted: {
         allowNull: false,
         type: DataTypes.INTEGER,

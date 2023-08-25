@@ -24,21 +24,27 @@ module.exports = {
         defaultValue: 0,
       },
       user_id: {
+        allowNull: false,
         type: DataTypes.INTEGER,
       },
       car_brand_id: {
+        allowNull: false,
         type: DataTypes.INTEGER,
       },
       car_model_id: {
+        allowNull: false,
         type: DataTypes.INTEGER,
       },
       car_seri_id: {
+        allowNull: false,
         type: DataTypes.INTEGER,
       },
       vehicle_type_id: {
+        allowNull: false,
         type: DataTypes.INTEGER,
       },
       car_license_id: {
+        allowNull: false,
         type: DataTypes.INTEGER,
       },
       createdAt: {

@@ -5,9 +5,9 @@ const {
   getAlllicensePlateTypeService,
 } = require("../services/license_Plate_Type.service");
 module.exports.licensePlateTypeController = (req, res, next) => {
-  const { licensePlateTypeName } = req.body;
+  const { LicensePlateType } = req.body;
 
-  licensePlateTypeService(licensePlateTypeName).then(
+  licensePlateTypeService(LicensePlateType).then(
     (carB) => {
       return res.json(carB);
     },

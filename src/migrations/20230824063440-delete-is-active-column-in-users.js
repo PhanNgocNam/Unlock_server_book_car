@@ -9,15 +9,7 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: DataTypes.INTEGER });
      */
-    queryInterface.addConstraint("cars", {
-      fields: ["car_model_id"],
-      type: "foreign key",
-      name: "car_model_association",
-      references: {
-        table: "car_models",
-        field: "id",
-      },
-    });
+    await queryInterface.removeColumn("users", "isActive");
   },
 
   async down(queryInterface, DataTypes) {
@@ -27,6 +19,10 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    queryInterface.removeConstraint("cars", "car_model_association");
+    await queryInterface.addColumn("users", "isActive", {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    });
   },
 };

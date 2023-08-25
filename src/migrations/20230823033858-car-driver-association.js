@@ -27,5 +27,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
+    queryInterface.removeConstraint("drivers", "car_driver_association");
   },
 };
