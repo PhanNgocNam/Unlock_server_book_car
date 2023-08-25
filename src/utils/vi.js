@@ -25,6 +25,7 @@ const transMail = {
   subject: "Unlock Car: Kích hoạt tài khoản.",
   template(linkVerify) {
     return `
+      <h2 style={{color:red}}>Unlock Car: Kích hoạt tài khoản.</h2>  
       <h2>Bạn nhận được mail này vì đã đăng ký tài khoản trên Unlock Car</h2>  
       <h3>Vui lòng click vào liên kết bên dưới để xác nhận kích hoạt tài khoản.</h3>
       <h3><a href="${linkVerify}" target="_blank">${linkVerify}</a></h3>
