@@ -33,3 +33,17 @@ module.exports.getAllcarModelService = ({ ...query }) => {
     }
   });
 };
+module.exports.getOneCarModelService = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: true, rest: true };
+      queries.id = id;
+      const response = await db.car_model.findOne({
+        where: { carModelUuid: id },
+      });
+      resolve(response);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+  });
+};

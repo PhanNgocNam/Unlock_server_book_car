@@ -29,7 +29,7 @@ module.exports.getAllRegistrationmethodsController = (req, res, next) => {
 };
 module.exports.getOneRegistrationmethodsController = (req, res, next) => {
   const { id } = req.query;
-  console.log(id);
+
   getOneRegistrationmethodsService(id).then(
     (carM) => {
       return res.json(carM);

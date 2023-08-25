@@ -32,3 +32,17 @@ module.exports.getAllcarSeriService = ({ ...query }) => {
     }
   });
 };
+module.exports.getOneCarSeriService = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: true, rest: true };
+      queries.id = id;
+      const response = await db.car_seri.findOne({
+        where: { carSeriUuid: id },
+      });
+      resolve(response);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+  });
+};

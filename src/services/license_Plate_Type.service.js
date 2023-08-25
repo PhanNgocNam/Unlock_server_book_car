@@ -37,3 +37,17 @@ module.exports.getAlllicensePlateTypeService = ({ ...query }) => {
     }
   });
 };
+module.exports.getOnelicenseplatetypeService = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: true, rest: true };
+      queries.id = id;
+      const response = await db.license_plate_type.findOne({
+        where: { licensePlateTypeUuid: id },
+      });
+      resolve(response);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+  });
+};
