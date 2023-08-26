@@ -12,6 +12,7 @@ const { sequelize } = require("../models");
 
 module.exports.authController = async (req, res, next) => {
   const { email, password } = req.body;
+  console.log(email, password);
   authService(email, password).then(
     (admin) => {
       const accessToken = jwt.sign(
