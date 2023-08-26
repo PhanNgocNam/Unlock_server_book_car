@@ -18,12 +18,13 @@ module.exports.createNewCarController = (req, res, next) => {
   );
 };
 
-
 module.exports.getCarsOfOneUserController = async (req, res, next) => {
   getCarsOfOneUserService(req.user.userUuid).then(
     (cars) => res.json({ cars }),
-    (err) => next(new Exeptions(err.message, err.status))}
-    
+    (err) => next(new Exeptions(err.message, err.status))
+  );
+};
+
 module.exports.getAllCarController = (req, res, next) => {
   getAllCarService(req.body).then(
     (carM) => {
@@ -32,6 +33,5 @@ module.exports.getAllCarController = (req, res, next) => {
     (err) => {
       return next(new Exeptions(err.message, err.status));
     }
-
   );
 };
