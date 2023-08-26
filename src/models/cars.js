@@ -55,6 +55,7 @@ module.exports = (sequelize, DataTypes) => {
         regis: this.get("regis")?.map(
           (regis_method) => regis_method.registerMethodName
         ),
+        user: this.get("user").email,
         user_id: undefined,
         car_brand_id: undefined,
         car_model_id: undefined,

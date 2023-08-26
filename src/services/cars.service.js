@@ -1,6 +1,7 @@
 const db = require("../models");
 const { sequelize } = require("../models");
 const err_code = require("../exeption_code");
+
 module.exports.createNewCarService = async (body) => {
   return new Promise(async (resolve, reject) => {
     const t = await sequelize.transaction();
@@ -34,5 +35,26 @@ module.exports.createNewCarService = async (body) => {
       await t.rollback();
       reject({ status: err_code.database_insert_err, message: err.message });
     }
+  });
+};
+
+module.exports.getCarsOfOneUserService = (userUuid) => {
+  return new Promise(async (resolve, reject) => {
+    const cars = await db.cars.findAll({
+      where: { userUuid },
+      include: [
+        "car_brand",
+        "car_model",
+        "vehicle_type",
+        "license_plate_type",
+        "vehicle_type",
+        "car_seri",
+        "user",
+        "regis",
+      ],
+    });
+    if (cars.length === 0)
+      return reject({ status: 404, message: "You haven't created a car yet!" });
+    resolve(cars);
   });
 };

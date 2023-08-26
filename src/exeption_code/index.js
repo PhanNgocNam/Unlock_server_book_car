@@ -3,4 +3,5 @@ module.exports = {
   email_has_been_used: 601,
   carBrandName_has_been_used: 602,
   database_insert_err: 603,
+  user_already_login: 604,
 };
