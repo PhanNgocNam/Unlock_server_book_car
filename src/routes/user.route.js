@@ -9,7 +9,7 @@ const db = require("../models");
 
 const { processUsersData } = require("../middlewares/processUsersData");
 
-// router.post("/register-user", registerUserController);
+router.post("/register-user", registerUserController);
 
 router.post(
   "/register-mutiple-user",

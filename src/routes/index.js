@@ -10,7 +10,11 @@ const { licensePlateTypeRoute } = require("./licensePlateType.route");
 const { vehicleTypeRoute } = require("./vehicle_type.route");
 const { regiterMethodRoute } = require("./registration_method.route");
 const { carRoute } = require("./cars.route");
+
+const { tokenRoute } = require("./token.route");
+
 const { driverRoute } = require("./driver.route");
+
 rootRouter.use("/test", testRouter);
 rootRouter.use("/carbrand", carBrandRoute);
 rootRouter.use("/carseri", carSeriRoute);
@@ -22,6 +26,7 @@ rootRouter.use("/driver", driverRoute);
 rootRouter.use("/auth", authRouter);
 rootRouter.use("/", userRoute);
 rootRouter.use("/car", carRoute);
+rootRouter.use("/token", tokenRoute);
 
 module.exports = {
   rootRouter,
