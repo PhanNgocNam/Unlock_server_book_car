@@ -8,6 +8,7 @@ module.exports.createNewCarService = async (body) => {
     try {
       const car = await db.cars.create(
         {
+          userUuid: body.userUuid,
           currentLocationInHCM: body.currentLocationInHCM,
           user_id: body.user_id,
           car_brand_id: body.car_brand_id,
