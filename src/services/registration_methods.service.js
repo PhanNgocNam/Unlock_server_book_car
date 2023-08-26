@@ -5,7 +5,7 @@ module.exports.RegistrationmethodsService = (body) => {
   return new Promise(async (resolve, reject) => {
     try {
       const found = await db.registration_method.count({
-        where: { registerMethodName: body },
+        where: { registerMethodName: body.RegiterMethod },
       });
 
       if (found)
@@ -14,7 +14,7 @@ module.exports.RegistrationmethodsService = (body) => {
           message: "registerMethodName has been used!",
         });
       const registerMethodName = await db.registration_method.create({
-        registerMethodName: body,
+        registerMethodName: body.RegiterMethod,
       });
 
       resolve(registerMethodName);

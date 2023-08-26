@@ -38,6 +38,7 @@ module.exports.createNewCarService = async (body) => {
   });
 };
 
+
 module.exports.getCarsOfOneUserService = (userUuid) => {
   return new Promise(async (resolve, reject) => {
     const cars = await db.cars.findAll({
@@ -56,5 +57,27 @@ module.exports.getCarsOfOneUserService = (userUuid) => {
     if (cars.length === 0)
       return reject({ status: 404, message: "You haven't created a car yet!" });
     resolve(cars);
+
+module.exports.getAllCarService = ({ ...query }) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const cars = await db.cars.findAll({
+        include: [
+          "car_brand",
+          "car_model",
+          "vehicle_type",
+          "license_plate_type",
+          "vehicle_type",
+          "car_seri",
+          "user",
+          "regis",
+        ],
+      });
+      // db.cars.add;
+      resolve(cars);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+
   });
 };

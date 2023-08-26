@@ -6,9 +6,9 @@ const {
   getOneCarModelService,
 } = require("../services/car_model.service");
 module.exports.createcarModelController = (req, res, next) => {
-  const { CarModel } = req.body;
+  // const { CarModel } = req.body;
 
-  createcarModelService(CarModel).then(
+  createcarModelService(req.body).then(
     (carM) => {
       return res.json(carM);
     },

@@ -5,8 +5,9 @@ const { query } = require("express");
 module.exports.createcarModelService = (body) => {
   return new Promise(async (resolve, reject) => {
     try {
+      console.log(body.CarModel);
       const found = await db.car_model.count({
-        where: { carModelName: body },
+        where: { carModelName: body.CarModel },
       });
 
       if (found)
@@ -14,7 +15,9 @@ module.exports.createcarModelService = (body) => {
           status: errorCode.carBrandName_has_been_used,
           message: "carModelName has been used!",
         });
-      const carModelName = await db.car_model.create({ carModelName: body });
+      const carModelName = await db.car_model.create({
+        carModelName: body.CarModel,
+      });
 
       resolve(carModelName);
     } catch (err) {

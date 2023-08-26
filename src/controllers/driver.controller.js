@@ -1,24 +1,22 @@
 const { Exeptions } = require("../utils/ExeptionError");
 const erorCode = require("../exeption_code");
 const {
-  carBrandService,
-  getAllcarBrandService,
-  getOneCarBrandService,
-} = require("../services/car_brand.service");
-module.exports.carBrandController = (req, res, next) => {
-  // const { CarBrand } = req.body;
-
-  carBrandService(req.body).then(
-    (carB) => {
-      return res.json(carB);
+  createdriverService,
+  getAlldriverService,
+  getOneDriverService,
+} = require("../services/driver.service");
+module.exports.createdriverController = (req, res, next) => {
+  createdriverService(req.body).then(
+    (car) => {
+      return res.json(car);
     },
     (err) => {
       next(new Exeptions(err.message, err.status));
     }
   );
 };
-module.exports.getAllcarBrandController = (req, res, next) => {
-  getAllcarBrandService(req.query).then(
+module.exports.getAllDriverController = (req, res, next) => {
+  getAlldriverService(req.query).then(
     (carM) => {
       return res.json(carM);
     },
@@ -27,10 +25,10 @@ module.exports.getAllcarBrandController = (req, res, next) => {
     }
   );
 };
-module.exports.getOneCarBrandController = (req, res, next) => {
+module.exports.getOneDriverController = (req, res, next) => {
   const { id } = req.query;
 
-  getOneCarBrandService(id).then(
+  getOneDriverService(id).then(
     (carM) => {
       return res.json(carM);
     },
