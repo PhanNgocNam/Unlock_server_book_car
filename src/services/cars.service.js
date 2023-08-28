@@ -22,18 +22,14 @@ module.exports.createNewCarService = async (body) => {
         },
         { transaction: t }
       );
-
       const listRegisterMethod = body.regis?.map((regi_id) => ({
         car_id: car.id,
         regis_id: regi_id,
       }));
-
       await db.car_register_method.bulkCreate(listRegisterMethod, {
         transaction: t,
       });
-
       await t.commit();
-
       resolve(car);
     } catch (err) {
       await t.rollback();
@@ -41,7 +37,6 @@ module.exports.createNewCarService = async (body) => {
     }
   });
 };
-
 module.exports.getCarsOfOneUserService = (userUuid) => {
   return new Promise(async (resolve, reject) => {
     const cars = await db.cars.findAll({
@@ -82,6 +77,53 @@ module.exports.getAllCarService = ({ ...query }) => {
       resolve(cars);
     } catch (err) {
       reject({ message: err.message });
+    }
+  });
+};
+
+module.exports.updateCarService = async (id, body) => {
+  return new Promise(async (resolve, reject) => {
+    const t = await sequelize.transaction();
+    try {
+      const car = await db.cars.findOne({ where: { caruuid: id } });
+      await car.update(body);
+      // const car = await db.cars.create(
+      //   {
+      //     userUuid: body.userUuid,
+      //     currentLocationInHCM: body.currentLocationInHCM,
+      //     license_plate: body.license_plate,
+      //     phone_owner: body.phone_owner,
+      //     vin_number: body.vin_number,
+      //     user_id: body.user_id,
+      //     car_brand_id: body.car_brand_id,
+      //     car_model_id: body.car_model_id,
+      //     car_seri_id: body.car_seri_id,
+      //     vehicle_type_id: body.vehicle_type_id,
+      //     car_license_id: body.car_license_id,
+      //   },
+      //   { transaction: t }
+      // );
+      const listRegisterMethod = body.regis?.map((regi_id) => ({
+        car_id: car.id,
+        regis_id: regi_id,
+      }));
+      // const carmethod = await db.car_register_method.findOne({
+      //   where: { caruuid: body.caruuid },
+      // });
+      await db.car_register_method.destroy({
+        where: { car_id: car.id },
+      });
+      await db.car_register_method.bulkCreate(listRegisterMethod, {
+        transaction: t,
+      });
+      await t.commit();
+      resolve({
+        message: "Success!",
+        status: 200,
+      });
+    } catch (err) {
+      await t.rollback();
+      reject({ status: err_code.database_insert_err, message: err.message });
     }
   });
 };
