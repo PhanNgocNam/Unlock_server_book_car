@@ -80,6 +80,18 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
+      license_plate: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      phone_owner: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      vin_number: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       isDeleted: {
         allowNull: false,
         type: DataTypes.INTEGER,
