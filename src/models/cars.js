@@ -91,6 +91,7 @@ module.exports = (sequelize, DataTypes) => {
       vin_number: {
         type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: "null",
       },
       isDeleted: {
         allowNull: false,
