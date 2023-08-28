@@ -1,6 +1,9 @@
 const { Exeptions } = require("../utils/ExeptionError");
 const erorCode = require("../exeption_code");
-const { registerUserService } = require("../services/user.service");
+const {
+  registerUserService,
+  getUserByEmailService,
+} = require("../services/user.service");
 
 module.exports.registerUserController = (req, res, next) => {
   const { email, password, confirmPass, fullname, phoneNumber } = req.body;
@@ -41,4 +44,14 @@ module.exports.registerMutipleUserController = (req, res, next) => {
       }
     );
   });
+};
+module.exports.getUserByEmailController = (req, res, next) => {
+  getUserByEmailService(req.body).then(
+    (carM) => {
+      return res.json(carM);
+    },
+    (err) => {
+      next(new Exeptions(err.message, err.status));
+    }
+  );
 };

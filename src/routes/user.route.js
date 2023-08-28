@@ -3,6 +3,7 @@ const {
   registerUserController,
   registerMutipleUserController,
   getAllCarController,
+  getUserByEmailController,
 } = require("../controllers/user.controller");
 const router = express.Router();
 const db = require("../models");
@@ -25,6 +26,7 @@ router.get("/get-one-user-by-uuid/:id", async (req, res) => {
   });
   res.json(user);
 });
+router.get("/get-one-user-by-email", getUserByEmailController);
 
 // router.get("/all", getAllCarController);
 

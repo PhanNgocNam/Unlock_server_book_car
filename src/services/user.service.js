@@ -32,3 +32,18 @@ module.exports.registerUserService = (
   });
 };
 
+module.exports.getUserByEmailService = (body) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: true, rest: true };
+
+      const response = await db.user.findOne({
+        where: { email: body.email },
+        include: ["cars"],
+      });
+      resolve(response);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+  });
+};
