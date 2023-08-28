@@ -67,6 +67,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   cars.init(
     {
+      userUuid: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       carUuid: {
         type: DataTypes.STRING,
         allowNull: false,
