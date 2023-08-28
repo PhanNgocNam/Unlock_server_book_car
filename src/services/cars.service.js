@@ -10,6 +10,9 @@ module.exports.createNewCarService = async (body) => {
         {
           userUuid: body.userUuid,
           currentLocationInHCM: body.currentLocationInHCM,
+          license_plate: body.license_plate,
+          phone_owner: body.phone_owner,
+          vin_number: body.vin_number,
           user_id: body.user_id,
           car_brand_id: body.car_brand_id,
           car_model_id: body.car_model_id,

@@ -10,7 +10,7 @@ const db = require("../models");
 module.exports.createNewCarController = (req, res, next) => {
   createNewCarService(req.body).then(
     (car) => {
-      return res.json({ status: "ok" });
+      return res.json({ status: 200, message: "success!" });
     },
     (err) => {
       return next(new Exeptions(err.message, err.status));
@@ -27,8 +27,8 @@ module.exports.getCarsOfOneUserController = async (req, res, next) => {
 
 module.exports.getAllCarController = (req, res, next) => {
   getAllCarService(req.body).then(
-    (carM) => {
-      return res.json(carM);
+    (allCar) => {
+      return res.json(allCar);
     },
     (err) => {
       return next(new Exeptions(err.message, err.status));

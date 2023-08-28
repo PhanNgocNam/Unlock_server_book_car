@@ -1,9 +1,13 @@
 const { Exeptions } = require("../utils/ExeptionError");
 const erorCode = require("../exeption_code");
+
+const { registerUserService } = require("../services/user.service");
+const { lengthValidate } = require("../utils/validateFunction");
+
 const {
-  registerUserService,
   getUserByEmailService,
 } = require("../services/user.service");
+
 
 module.exports.registerUserController = (req, res, next) => {
   const { email, password, confirmPass, fullname, phoneNumber } = req.body;
@@ -14,6 +18,13 @@ module.exports.registerUserController = (req, res, next) => {
         erorCode.password_not_match
       )
     );
+  lengthValidate(
+    password,
+    6,
+    "smaller",
+    "Password length must be greater than 6 characters!",
+    400
+  );
 
   registerUserService(email, password, fullname, phoneNumber).then(
     (user) => {
