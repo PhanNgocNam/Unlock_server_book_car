@@ -1,6 +1,6 @@
 const db = require("../models");
 const errorCode = require("../exeption_code/index");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 module.exports.registerUserService = (
   email,
@@ -17,8 +17,8 @@ module.exports.registerUserService = (
           message: "Email has been used!",
         });
 
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(password, salt);
+      const salt = bcrypt.genSaltSync(10);
+      const hashedPassword = bcrypt.hashSync(password, salt);
       const user = await db.user.create({
         email,
         password: hashedPassword,
