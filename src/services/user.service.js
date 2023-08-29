@@ -47,3 +47,18 @@ module.exports.getUserByEmailService = (body) => {
     }
   });
 };
+module.exports.updateIsDeletedUsersService = async (id, body) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const IsDeletedUsers = await db.user.findOne({ where: { userUuid: id } });
+      await IsDeletedUsers.update(body);
+
+      resolve({
+        message: "Success!",
+        status: 200,
+      });
+    } catch (err) {
+      reject({ status: errorCode.update_car_err, message: err.message });
+    }
+  });
+};

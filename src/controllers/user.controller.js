@@ -6,8 +6,8 @@ const { lengthValidate } = require("../utils/validateFunction");
 
 const {
   getUserByEmailService,
+  updateIsDeletedUsersService,
 } = require("../services/user.service");
-
 
 module.exports.registerUserController = (req, res, next) => {
   const { email, password, confirmPass, fullname, phoneNumber } = req.body;
@@ -58,11 +58,22 @@ module.exports.registerMutipleUserController = (req, res, next) => {
 };
 module.exports.getUserByEmailController = (req, res, next) => {
   getUserByEmailService(req.body).then(
-    (carM) => {
-      return res.json(carM);
+    (user) => {
+      return res.json(user);
     },
     (err) => {
       next(new Exeptions(err.message, err.status));
+    }
+  );
+};
+module.exports.updateIsDeletedUsersController = (req, res, next) => {
+  const { id } = req.query;
+  updateIsDeletedUsersService(id, req.body).then(
+    (updateUser) => {
+      return res.json(updateUser);
+    },
+    (err) => {
+      return next(new Exeptions(err.message, err.status));
     }
   );
 };
