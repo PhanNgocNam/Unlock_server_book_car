@@ -11,7 +11,7 @@ module.exports.licensePlateTypeService = (body) => {
       if (found)
         return reject({
           status: errorCode.carBrandName_has_been_used,
-          message: "licensePlateTypeName has been used!",
+          message: "License platetype name has been used!",
         });
       const licensePlateTypeName = await db.license_plate_type.create({
         licensePlateTypeName: body.LicensePlateType,

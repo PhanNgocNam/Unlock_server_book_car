@@ -120,3 +120,17 @@ module.exports.updateCarService = async (id, body) => {
     }
   });
 };
+module.exports.updateIsdeletedCarService = async (id, body) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const car = await db.cars.findOne({ where: { caruuid: id } });
+      await car.update(body);
+      resolve({
+        message: "Success!",
+        status: 200,
+      });
+    } catch (err) {
+      reject({ status: err_code.update_car_err, message: err.message });
+    }
+  });
+};
