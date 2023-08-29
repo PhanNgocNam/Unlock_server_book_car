@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const { validate } = require("../utils/validateFunction");
 module.exports = (sequelize, DataTypes) => {
   class cars extends Model {
     /**
@@ -55,6 +56,7 @@ module.exports = (sequelize, DataTypes) => {
         regis: this.get("regis")?.map(
           (regis_method) => regis_method.registerMethodName
         ),
+        user: this.get("user").email,
         user_id: undefined,
         car_brand_id: undefined,
         car_model_id: undefined,
@@ -66,6 +68,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   cars.init(
     {
+      userUuid: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       carUuid: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -74,6 +80,39 @@ module.exports = (sequelize, DataTypes) => {
       currentLocationInHCM: {
         allowNull: false,
         type: DataTypes.STRING,
+      },
+      license_plate: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      phone_owner: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          checkPhoneValid: function (value) {
+            validate(
+              value,
+              /(84|0[35789])([0-9]{8})\b/,
+              "Số điện thoại không hợp lệ!",
+              400
+            );
+          },
+        },
+      },
+      vin_number: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "null",
+        validate: {
+          checkVinNumber: function (value) {
+            validate(
+              value,
+              /\b[A-HJ-NPR-Z0-9]{17}\b/,
+              "Số khung không hợp lệ!",
+              400
+            );
+          },
+        },
       },
       isDeleted: {
         allowNull: false,

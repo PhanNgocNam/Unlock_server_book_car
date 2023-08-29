@@ -3,7 +3,8 @@ const errorCode = require("../exeption_code/index");
 const { sendMail } = require("../utils/mailer");
 const { vi } = require("../utils/vi");
 const jwt = require("jsonwebtoken");
-const bcryt = require("bcrypt");
+
+const bcrypt = require("bcrypt");
 
 module.exports.authService = async (email, password) => {
   const found = await db.user.count({ where: { email } });
@@ -31,17 +32,14 @@ module.exports.registerUserService = (email, password, protocol, host) => {
             message: vi.transError.account_removed,
           });
         }
-        // if (!userByEmail.isActived) {
-        //   return reject(transError.account_not_active);
-        // }
+
         return reject({
           status: errorCode.email_has_been_used,
           message: vi.transError.account_in_use,
         });
       }
-      // const hashedPassword = await bcrypt.hash(password, saltRounds);
-      const salt = await bcryt.genSalt(10);
-      const hashedPassword = await bcryt.hash(password, salt);
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
       const user = await db.user.create({ email, password: hashedPassword });
       //send mail
       const accessToken = jwt.sign(

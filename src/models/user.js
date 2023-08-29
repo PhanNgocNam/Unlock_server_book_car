@@ -1,5 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
+const { validate } = require("../utils/validateFunction");
+const { Exeptions } = require("../utils/ExeptionError");
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
     /**
@@ -25,22 +27,23 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue: "null",
         validate: {
-          notEmpty: { msg: "Email must not be empty!" },
+          checkIsEmail: function (value) {
+            validate(
+              value,
+              "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$",
+              "You must use a valid email address!",
+              400
+            );
+          },
         },
       },
       password: {
         allowNull: false,
         type: DataTypes.STRING,
-        validate: {
-          notEmpty: { msg: "Password must not empty!" },
-        },
       },
       fullname: {
         allowNull: true,
         type: DataTypes.STRING,
-        // validate: {
-        //   notEmpty: { msg: "Fullname most not empty!" },
-        // },
         defaultValue: "null",
       },
       permissions: {

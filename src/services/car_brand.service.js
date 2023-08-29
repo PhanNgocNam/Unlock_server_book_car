@@ -11,7 +11,7 @@ module.exports.carBrandService = (body) => {
       if (found)
         return reject({
           status: errorCode.carBrandName_has_been_used,
-          message: "carBrandName has been used!",
+          message: "Car brand name has been used!",
         });
       const car_brand = await db.car_brand.create({
         carBrandName: body.CarBrand,

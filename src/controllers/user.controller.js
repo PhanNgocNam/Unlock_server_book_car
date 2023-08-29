@@ -1,6 +1,13 @@
 const { Exeptions } = require("../utils/ExeptionError");
 const erorCode = require("../exeption_code");
+
 const { registerUserService } = require("../services/user.service");
+const { lengthValidate } = require("../utils/validateFunction");
+
+const {
+  getUserByEmailService,
+  updateIsDeletedUsersService,
+} = require("../services/user.service");
 
 module.exports.registerUserController = (req, res, next) => {
   const { email, password, confirmPass, fullname, phoneNumber } = req.body;
@@ -11,6 +18,13 @@ module.exports.registerUserController = (req, res, next) => {
         erorCode.password_not_match
       )
     );
+  // lengthValidate(
+  //   password,
+  //   6,
+  //   "greater",
+  //   "Password length must be greater than 6 characters!",
+  //   400
+  // );
 
   registerUserService(email, password, fullname, phoneNumber).then(
     (user) => {
@@ -41,4 +55,25 @@ module.exports.registerMutipleUserController = (req, res, next) => {
       }
     );
   });
+};
+module.exports.getUserByEmailController = (req, res, next) => {
+  getUserByEmailService(req.body).then(
+    (user) => {
+      return res.json(user);
+    },
+    (err) => {
+      next(new Exeptions(err.message, err.status));
+    }
+  );
+};
+module.exports.updateIsDeletedUsersController = (req, res, next) => {
+  const { id } = req.query;
+  updateIsDeletedUsersService(id, req.body).then(
+    (updateUser) => {
+      return res.json(updateUser);
+    },
+    (err) => {
+      return next(new Exeptions(err.message, err.status));
+    }
+  );
 };

@@ -3,13 +3,15 @@ const {
   registerUserController,
   registerMutipleUserController,
   getAllCarController,
+  getUserByEmailController,
+  updateIsDeletedUsersController,
 } = require("../controllers/user.controller");
 const router = express.Router();
 const db = require("../models");
 
 const { processUsersData } = require("../middlewares/processUsersData");
 
-// router.post("/register-user", registerUserController);
+router.post("/register-user", registerUserController);
 
 router.post(
   "/register-mutiple-user",
@@ -25,7 +27,8 @@ router.get("/get-one-user-by-uuid/:id", async (req, res) => {
   });
   res.json(user);
 });
-
+router.get("/get-one-user-by-email", getUserByEmailController);
+router.put("/update-isdeleted-user", updateIsDeletedUsersController);
 // router.get("/all", getAllCarController);
 
 module.exports.userRoute = router;

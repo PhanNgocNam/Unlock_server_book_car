@@ -32,3 +32,33 @@ module.exports.registerUserService = (
   });
 };
 
+module.exports.getUserByEmailService = (body) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: true, rest: true };
+
+      const response = await db.user.findOne({
+        where: { email: body.email },
+        include: ["cars"],
+      });
+      resolve(response);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+  });
+};
+module.exports.updateIsDeletedUsersService = async (id, body) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const IsDeletedUsers = await db.user.findOne({ where: { userUuid: id } });
+      await IsDeletedUsers.update(body);
+
+      resolve({
+        message: "Success!",
+        status: 200,
+      });
+    } catch (err) {
+      reject({ status: errorCode.update_car_err, message: err.message });
+    }
+  });
+};

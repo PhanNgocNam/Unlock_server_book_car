@@ -5,25 +5,37 @@ const {
   verifyAccount,
 } = require("../services/authService");
 const { Exeptions } = require("../utils/ExeptionError");
+
 const { query } = require("express-validator");
 
 const { vi } = require("../utils/vi");
 const { sequelize } = require("../models");
+const { generateAcessToken } = require("../utils/generateAccessToken");
+const {
+  refreshTokenService,
+  insertRefreshTokenService,
+} = require("../services/refresh_token.service");
 
 module.exports.authController = async (req, res, next) => {
   const { email, password } = req.body;
   console.log(email, password);
   authService(email, password).then(
     (admin) => {
-      const accessToken = jwt.sign(
-        {
-          userID: admin.id,
-          email: admin.username,
-          permissions: admin.permissions,
+      const user = {
+        userId: admin.id,
+        userUuid: admin.userUuid,
+        permissions: admin.permissions,
+      };
+      const accessToken = generateAcessToken(user);
+      const refreshToken = jwt.sign(user, process.env.SECRET_KEY);
+      insertRefreshTokenService(user.userUuid, refreshToken).then(
+        (token) => {
+          return res.json({ accessToken, refreshToken: token });
         },
-        process.env.SECRET_KEY
+        (err) => {
+          next(new Exeptions(err.message, err.status));
+        }
       );
-      res.json({ accessToken });
     },
     (err) => {
       const error = new Exeptions(err.message, err.status);
