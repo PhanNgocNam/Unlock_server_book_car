@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const { validate } = require("../utils/validateFunction");
 module.exports = (sequelize, DataTypes) => {
   class cars extends Model {
     /**
@@ -87,11 +88,31 @@ module.exports = (sequelize, DataTypes) => {
       phone_owner: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          checkPhoneValid: function (value) {
+            validate(
+              value,
+              /(84|0[35789])([0-9]{8})\b/,
+              "Số điện thoại không hợp lệ!",
+              400
+            );
+          },
+        },
       },
       vin_number: {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "null",
+        validate: {
+          checkVinNumber: function (value) {
+            validate(
+              value,
+              /\b[A-HJ-NPR-Z0-9]{17}\b/,
+              "Số khung không hợp lệ!",
+              400
+            );
+          },
+        },
       },
       isDeleted: {
         allowNull: false,

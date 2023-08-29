@@ -21,6 +21,7 @@ module.exports.authController = async (req, res, next) => {
   authService(email, password).then(
     (admin) => {
       const user = {
+        userId: admin.id,
         userUuid: admin.userUuid,
         permissions: admin.permissions,
       };
