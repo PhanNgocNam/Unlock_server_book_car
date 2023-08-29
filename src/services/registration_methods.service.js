@@ -11,7 +11,7 @@ module.exports.RegistrationmethodsService = (body) => {
       if (found)
         return reject({
           status: errorCode.carBrandName_has_been_used,
-          message: "registerMethodName has been used!",
+          message: "Register method name has been used!",
         });
       const registerMethodName = await db.registration_method.create({
         registerMethodName: body.RegiterMethod,

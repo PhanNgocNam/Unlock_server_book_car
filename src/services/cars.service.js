@@ -87,24 +87,50 @@ module.exports.updateCarService = async (id, body) => {
     try {
       const car = await db.cars.findOne({ where: { caruuid: id } });
       await car.update(body);
+
       const listRegisterMethod = body.regis?.map((regi_id) => ({
         car_id: car.id,
         regis_id: regi_id,
       }));
-      await db.car_register_method.destroy({
-        where: { car_id: car.id },
-      });
-      await db.car_register_method.bulkCreate(listRegisterMethod, {
-        transaction: t,
-      });
+
+      if (body.regis) {
+        await db.car_register_method.destroy(
+          {
+            where: { car_id: car.id },
+          },
+          { transaction: t }
+        );
+      }
+
+      if (body.regis) {
+        await db.car_register_method.bulkCreate(listRegisterMethod, {
+          transaction: t,
+        });
+      }
+
       await t.commit();
+
       resolve({
         message: "Success!",
         status: 200,
       });
     } catch (err) {
       await t.rollback();
-      reject({ status: err_code.database_insert_err, message: err.message });
+      reject({ status: err_code.update_car_err, message: err.message });
+    }
+  });
+};
+module.exports.updateIsdeletedCarService = async (id, body) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const car = await db.cars.findOne({ where: { caruuid: id } });
+      await car.update(body);
+      resolve({
+        message: "Success!",
+        status: 200,
+      });
+    } catch (err) {
+      reject({ status: err_code.update_car_err, message: err.message });
     }
   });
 };

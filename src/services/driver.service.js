@@ -11,7 +11,7 @@ module.exports.createdriverService = (body) => {
       if (found)
         return reject({
           status: errorCode.carBrandName_has_been_used,
-          message: "driverPhoneNumber has been used!",
+          message: "Driver phone number has been used!",
         });
       const driver = await db.driver.create({
         driverName: body.driverName,

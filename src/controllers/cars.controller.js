@@ -3,6 +3,7 @@ const {
   getCarsOfOneUserService,
   getAllCarService,
   updateCarService,
+  updateIsdeletedCarService,
 } = require("../services/cars.service");
 const { Exeptions } = require("../utils/ExeptionError");
 const db = require("../models");
@@ -37,8 +38,19 @@ module.exports.getAllCarController = (req, res, next) => {
 module.exports.updateCarController = (req, res, next) => {
   const { id } = req.query;
   updateCarService(id, req.body).then(
-    (allCar) => {
-      return res.json(allCar);
+    (updateCar) => {
+      return res.json(updateCar);
+    },
+    (err) => {
+      return next(new Exeptions(err.message, err.status));
+    }
+  );
+};
+module.exports.updateIsdeletedCarController = (req, res, next) => {
+  const { id } = req.query;
+  updateIsdeletedCarService(id, req.body).then(
+    (updateCar) => {
+      return res.json(updateCar);
     },
     (err) => {
       return next(new Exeptions(err.message, err.status));
