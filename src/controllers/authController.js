@@ -16,6 +16,7 @@ const {
   insertRefreshTokenService,
 } = require("../services/refresh_token.service");
 
+//This is login route
 module.exports.authController = async (req, res, next) => {
   const { email, password } = req.body;
   console.log(email, password);
