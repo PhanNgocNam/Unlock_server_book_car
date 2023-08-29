@@ -3,6 +3,7 @@ const errorCode = require("../exeption_code/index");
 const { sendMail } = require("../utils/mailer");
 const { vi } = require("../utils/vi");
 const jwt = require("jsonwebtoken");
+
 const bcrypt = require("bcrypt");
 
 module.exports.authService = async (email, password) => {
@@ -14,7 +15,7 @@ module.exports.authService = async (email, password) => {
         message: "Incorrect email ,or you haven't registed yet!",
       });
     const admin = await db.user.findOne({ where: { email } });
-    const result = await bcrypt.compare(password, admin.password);
+    const result = await bcryt.compare(password, admin.password);
     if (!result) return reject({ status: 400, message: "Incorrect password!" });
     resolve(admin.dataValues);
   });
