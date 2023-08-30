@@ -204,7 +204,7 @@ module.exports.finhCarByUserService = (userUuid, carSeri) => {
         }
       }
 
-      resolve({ cars: [uniqueCars] });
+      resolve(uniqueCars);
     } catch (error) {
       reject(error);
     }
