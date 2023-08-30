@@ -4,6 +4,7 @@ const {
   getAllCarService,
   updateCarService,
   updateIsdeletedCarService,
+  finhCarByUserService,
 } = require("../services/cars.service");
 const { Exeptions } = require("../utils/ExeptionError");
 const db = require("../models");
@@ -55,5 +56,11 @@ module.exports.updateIsdeletedCarController = (req, res, next) => {
     (err) => {
       return next(new Exeptions(err.message, err.status));
     }
+  );
+};
+module.exports.findCarByUserController = async (req, res, next) => {
+  finhCarByUserService(req.user.userUuid, req.body).then(
+    (cars) => res.json({ cars }),
+    (err) => next(new Exeptions(err.message, err.status))
   );
 };

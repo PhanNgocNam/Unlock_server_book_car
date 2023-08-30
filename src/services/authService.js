@@ -78,3 +78,13 @@ module.exports.verifyAccount = (token) => {
     });
   });
 };
+module.exports.logoutService = async (idU) => {
+  return new Promise(async (resolve, reject) => {
+    // const isExists = await db.refreshToken.count({ where: { userUuid } });
+    const logoutusers = await db.refreshToken.destroy({
+      where: { userUuid: idU },
+    });
+
+    resolve(logoutusers);
+  });
+};

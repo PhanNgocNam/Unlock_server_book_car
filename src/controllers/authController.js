@@ -3,6 +3,7 @@ const {
   authService,
   registerUserService,
   verifyAccount,
+  logoutService,
 } = require("../services/authService");
 const { Exeptions } = require("../utils/ExeptionError");
 
@@ -83,6 +84,17 @@ module.exports.registerUserController = (req, res, next) => {
     },
     (err) => {
       next(new Exeptions(err.message, err.status));
+    }
+  );
+};
+module.exports.LoggedOutUserController = (req, res, next, uuId) => {
+  console.log(uuId);
+  logoutService().then(
+    (logout) => {
+      return res.json(logout);
+    },
+    (err) => {
+      return next(new Exeptions(err.message, err.status));
     }
   );
 };
