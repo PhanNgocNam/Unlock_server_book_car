@@ -20,6 +20,10 @@ router.get(
 router.post("/create-a-car", createNewCarController);
 
 router.get("/all", getAllCarController);
+
+router.get("/search", () => {});
+
 router.put("/update", updateCarController);
+
 router.put("/update-isdeletedcar", updateIsdeletedCarController);
 module.exports.carRoute = router;

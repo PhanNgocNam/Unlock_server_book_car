@@ -1,6 +1,7 @@
 const db = require("../models");
 const { sequelize } = require("../models");
 const err_code = require("../exeption_code");
+const { Exeptions } = require("../utils/ExeptionError");
 
 module.exports.createNewCarService = async (body) => {
   return new Promise(async (resolve, reject) => {
@@ -26,6 +27,12 @@ module.exports.createNewCarService = async (body) => {
         car_id: car.id,
         regis_id: regi_id,
       }));
+
+      if (!listRegisterMethod.length)
+        return reject({
+          status: 400,
+          message: "Vui lòng chọn ít nhất một hình thức đăng ký!",
+        });
       await db.car_register_method.bulkCreate(listRegisterMethod, {
         transaction: t,
       });
@@ -37,6 +44,26 @@ module.exports.createNewCarService = async (body) => {
     }
   });
 };
+
+module.exports.searchCarService = async (q) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const data = await db.cars.findAll({
+        [Op.or]: [
+          { name: { [Op.like]: "%" + q + "%" } },
+          { age: { [Op.like]: "%" + q + "%" } },
+          { country: { [Op.like]: "%" + q + "%" } },
+          { position: { [Op.like]: "%" + q + "%" } },
+          { wage: { [Op.like]: "%" + q + "%" } },
+        ],
+      });
+      resolve(data);
+    } catch (err) {
+      reject(new Exeptions(err.message));
+    }
+  });
+};
+
 module.exports.getCarsOfOneUserService = (userUuid) => {
   return new Promise(async (resolve, reject) => {
     const cars = await db.cars.findAll({

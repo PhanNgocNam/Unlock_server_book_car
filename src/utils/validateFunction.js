@@ -6,15 +6,14 @@ module.exports.validate = (value, samplePattern, errMsg, status) => {
   if (!result) throw new Exeptions(errMsg, status);
 };
 
-module.exports.lengthValidate = (value, anchor, type, errMsg, stautus) => {
-  switch (type) {
-    case "greater":
-      const result_ = value > anchor;
-      if (!result_) throw new Exeptions(errMsg, stautus);
-      break;
-    case "smaller":
-      const result = value < anchor;
-      if (!result) throw new Exeptions(errMsg, stautus);
-      break;
-  }
-};
+// module.exports.lengthValidate = (value, anchor, type, errMsg, stautus) => {
+//   if (type == "greater") {
+//     const result_ = value > anchor;
+//     if (!result_) throw new Exeptions(errMsg, stautus);
+//   }
+
+//   if (type === "smaller") {
+//     const result = value < anchor;
+//     if (!result) throw new Exeptions(errMsg, stautus);
+//   }
+// };
