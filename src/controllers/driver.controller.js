@@ -5,6 +5,7 @@ const {
   getAlldriverService,
   getOneDriverService,
 } = require("../services/driver.service");
+
 module.exports.createdriverController = (req, res, next) => {
   createdriverService(req.body).then(
     (car) => {
@@ -15,6 +16,9 @@ module.exports.createdriverController = (req, res, next) => {
     }
   );
 };
+
+module.exports.searchCarController = (req, res, next) => {};
+
 module.exports.getAllDriverController = (req, res, next) => {
   getAlldriverService(req.query).then(
     (carM) => {
@@ -25,6 +29,7 @@ module.exports.getAllDriverController = (req, res, next) => {
     }
   );
 };
+
 module.exports.getOneDriverController = (req, res, next) => {
   const { id } = req.query;
 

@@ -5,6 +5,7 @@ const {
   getCarsOfOneUserController,
   updateCarController,
   updateIsdeletedCarController,
+  findCarByUserController,
 } = require("../controllers/cars.controller");
 const { authenticateToken } = require("../middlewares/authenticateToken");
 const router = express.Router();
@@ -20,6 +21,11 @@ router.get(
 router.post("/create-a-car", createNewCarController);
 
 router.get("/all", getAllCarController);
+
+router.get("/search", () => {});
+
 router.put("/update", updateCarController);
+
 router.put("/update-isdeletedcar", updateIsdeletedCarController);
+router.get("/find-car", authenticateToken, findCarByUserController);
 module.exports.carRoute = router;

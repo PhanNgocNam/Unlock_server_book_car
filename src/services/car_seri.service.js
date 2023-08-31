@@ -11,7 +11,7 @@ module.exports.carSeriService = (body) => {
       if (found)
         return reject({
           status: errorCode.carBrandName_has_been_used,
-          message: "Car Seri Name has been used!",
+          message: "Car seri name has been used!",
         });
       const carSeriName = await db.car_seri.create({
         carSeriName: body.CarSeri,

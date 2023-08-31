@@ -4,7 +4,7 @@ const { sendMail } = require("../utils/mailer");
 const { vi } = require("../utils/vi");
 const jwt = require("jsonwebtoken");
 
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 module.exports.authService = async (email, password) => {
   const found = await db.user.count({ where: { email } });
@@ -15,7 +15,11 @@ module.exports.authService = async (email, password) => {
         message: "Incorrect email ,or you haven't registed yet!",
       });
     const admin = await db.user.findOne({ where: { email } });
-    const result = await bcrypt.compare(password, admin.password);
+// <<<<<<< DuyTao
+//     const result = await bcrypt.compare(password, admin.password);
+// =======
+    const result = bcrypt.compareSync(password, admin.password);
+// >>>>>>> main
     if (!result) return reject({ status: 400, message: "Incorrect password!" });
     resolve(admin.dataValues);
   });
@@ -38,8 +42,8 @@ module.exports.registerUserService = (email, password, protocol, host) => {
           message: vi.transError.account_in_use,
         });
       }
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(password, salt);
+      const salt = bcrypt.genSaltSync(10);
+      const hashedPassword = bcrypt.hashSync(password, salt);
       const user = await db.user.create({ email, password: hashedPassword });
       //send mail
       const accessToken = jwt.sign(
@@ -76,5 +80,15 @@ module.exports.verifyAccount = (token) => {
       if (err) return res.sendStatus(403);
       resolve(user);
     });
+  });
+};
+module.exports.logoutService = async (idU) => {
+  return new Promise(async (resolve, reject) => {
+    // const isExists = await db.refreshToken.count({ where: { userUuid } });
+    const logoutusers = await db.refreshToken.destroy({
+      where: { userUuid: idU },
+    });
+
+    resolve(logoutusers);
   });
 };

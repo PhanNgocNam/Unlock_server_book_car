@@ -3,6 +3,7 @@ const {
   authService,
   registerUserService,
   verifyAccount,
+  logoutService,
 } = require("../services/authService");
 const { Exeptions } = require("../utils/ExeptionError");
 
@@ -16,6 +17,7 @@ const {
   insertRefreshTokenService,
 } = require("../services/refresh_token.service");
 
+//This is login route
 module.exports.authController = async (req, res, next) => {
   const { email, password } = req.body;
   authService(email, password).then(
@@ -80,6 +82,17 @@ module.exports.registerUserController = (req, res, next) => {
     },
     (err) => {
       next(new Exeptions(err.message, err.status));
+    }
+  );
+};
+module.exports.LoggedOutUserController = (req, res, next, uuId) => {
+  console.log(uuId);
+  logoutService().then(
+    (logout) => {
+      return res.json(logout);
+    },
+    (err) => {
+      return next(new Exeptions(err.message, err.status));
     }
   );
 };

@@ -8,6 +8,7 @@ module.exports.authenticateToken = (req, res, next) => {
     if (err)
       return res.sendStatus(403).json({ status: 403, message: err.message });
     req.user = user;
+
     next();
   });
 };
