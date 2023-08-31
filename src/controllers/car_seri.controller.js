@@ -17,6 +17,7 @@ module.exports.carseriController = (req, res, next) => {
     }
   );
 };
+
 module.exports.getAllcarSeriController = (req, res, next) => {
   getAllcarSeriService(req.query).then(
     (carM) => {
@@ -27,6 +28,7 @@ module.exports.getAllcarSeriController = (req, res, next) => {
     }
   );
 };
+
 module.exports.getOneCarSeriController = (req, res, next) => {
   const { id } = req.query;
 

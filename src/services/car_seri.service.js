@@ -27,13 +27,18 @@ module.exports.getAllcarSeriService = ({ ...query }) => {
   return new Promise(async (resolve, reject) => {
     try {
       const queries = { raw: true, rest: true };
-      const response = await db.car_seri.findAll({ where: query, ...queries });
+      const response = await db.car_seri.findAll({
+        where: query,
+        // include: ["years"],
+        ...queries,
+      });
       resolve(response);
     } catch (err) {
       reject({ message: err.message });
     }
   });
 };
+
 module.exports.getOneCarSeriService = (id) => {
   return new Promise(async (resolve, reject) => {
     try {

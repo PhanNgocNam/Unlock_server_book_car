@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
       registration_method,
       license_plate_type,
       driver,
-      car_seri,
       car_model,
       car_brand,
     }) {
@@ -28,7 +27,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "car_model_id",
         as: "car_model",
       });
-      this.belongsTo(car_seri, { foreignKey: "car_seri_id", as: "car_seri" });
       this.belongsTo(vehicle_type, {
         foreignKey: "vehicle_type_id",
         as: "vehicle_type",
@@ -48,7 +46,6 @@ module.exports = (sequelize, DataTypes) => {
     toJSON() {
       return {
         ...this.get(),
-        car_seri: this.get("car_seri").carSeriName,
         license_plate_type: this.get("license_plate_type").licensePlateTypeName,
         vehicle_type: this.get("vehicle_type").vehicleTypeName,
         car_model: this.get("car_model").carModelName,
@@ -60,7 +57,6 @@ module.exports = (sequelize, DataTypes) => {
         user_id: undefined,
         car_brand_id: undefined,
         car_model_id: undefined,
-        car_seri_id: undefined,
         vehicle_type_id: undefined,
         car_license_id: undefined,
       };
