@@ -5,7 +5,6 @@ const { query } = require("express");
 module.exports.createcarModelService = (body) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(body.CarModel);
       const found = await db.car_model.count({
         where: { carModelName: body.CarModel },
       });

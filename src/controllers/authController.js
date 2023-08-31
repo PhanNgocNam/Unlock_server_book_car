@@ -18,7 +18,6 @@ const {
 
 module.exports.authController = async (req, res, next) => {
   const { email, password } = req.body;
-  console.log(email, password);
   authService(email, password).then(
     (admin) => {
       const user = {
@@ -54,7 +53,6 @@ module.exports.checkLoggedOut = (req, res, next) => {
 module.exports.getVerifyAccount = async (req, res, next) => {
   try {
     await verifyAccount(req.params.token).then(async (user) => {
-      console.log(user);
       await sequelize.query(
         `UPDATE users SET isVerify = 1 WHERE id = ${user.userID}`
       );
