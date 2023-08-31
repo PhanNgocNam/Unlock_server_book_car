@@ -185,13 +185,19 @@ module.exports.getAllCarByIdService = ({ id }) => {
     }
   });
 };
-module.exports.finhCarByUserService = (userUuid, carBrand) => {
+module.exports.finhCarByUserService = (userUuid, car) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const cars = await sequelize.query(
+      var cars = await sequelize.query(
         `SELECT users.email,currentLocationInHCM,car_brands.carBrandName,car_models.carModelName ,vehicle_types.vehicleTypeName,vin_number,phone_owner,license_plate,license_plate_types.licensePlateTypeName FROM cars JOIN car_brands ON cars.car_brand_id = car_brands.id JOIN car_models ON cars.car_model_id = car_models.id JOIN users ON cars.user_id = users.id  JOIN vehicle_types ON cars.vehicle_type_id = vehicle_types.id  JOIN license_plate_types ON cars.car_license_id = license_plate_types.id 
-         WHERE cars.useruuid = '${userUuid}' AND car_brands.carBrandName LIKE '%${carBrand.car_brand}%'`
+         WHERE cars.useruuid = '${userUuid}' AND car_brands.carBrandName LIKE '%${car}%'`
       );
+      if (cars[0].length < 1) {
+        cars = await sequelize.query(
+          `SELECT users.email,currentLocationInHCM,car_brands.carBrandName,car_models.carModelName ,vehicle_types.vehicleTypeName,vin_number,phone_owner,license_plate,license_plate_types.licensePlateTypeName FROM cars JOIN car_brands ON cars.car_brand_id = car_brands.id JOIN car_models ON cars.car_model_id = car_models.id JOIN users ON cars.user_id = users.id  JOIN vehicle_types ON cars.vehicle_type_id = vehicle_types.id  JOIN license_plate_types ON cars.car_license_id = license_plate_types.id 
+           WHERE cars.useruuid = '${userUuid}' AND car_models.carModelName LIKE '%${car}%'`
+        );
+      }
       const uniqueCars = [];
 
       for (const row of cars[0]) {

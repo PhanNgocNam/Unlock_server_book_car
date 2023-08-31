@@ -60,7 +60,9 @@ module.exports.updateIsdeletedCarController = (req, res, next) => {
   );
 };
 module.exports.findCarByUserController = async (req, res, next) => {
-  finhCarByUserService(req.user.userUuid, req.body).then(
+  const { carname } = req.query;
+
+  finhCarByUserService(req.user.userUuid, carname).then(
     (cars) => res.json({ cars }),
     (err) => next(new Exeptions(err.message, err.status))
   );
