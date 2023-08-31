@@ -11,10 +11,16 @@ const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
 app.use(cors());
 app.use(express.json());
+const db = require("./src/models");
 
 const server = http.createServer(app);
 
 app.use("/api/v1", rootRouter);
+
+app.get("/year/all", async (req, res) => {
+  const y = await db.release_year.findAll({ include: ["brands"] });
+  res.json(y);
+});
 
 const io = new Server(server, {
   cors: {
@@ -28,7 +34,7 @@ app.use(handleError);
 server.listen(process.env.PORT, async () => {
   try {
     await sequelize.authenticate();
-    //const isConnected = await sequelize.sync({ force: true });
+    // await sequelize.sync({ force: true });
     console.log(`Server is running on port ${process.env.PORT}`);
   } catch (err) {
     console.log(`Oops. Something went wrong: ${err}`);

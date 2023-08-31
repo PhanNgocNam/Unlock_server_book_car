@@ -36,6 +36,7 @@ module.exports.getAllCarController = (req, res, next) => {
     }
   );
 };
+
 module.exports.updateCarController = (req, res, next) => {
   const { id } = req.query;
   updateCarService(id, req.body).then(

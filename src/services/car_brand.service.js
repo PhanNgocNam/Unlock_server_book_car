@@ -28,7 +28,11 @@ module.exports.getAllcarBrandService = ({ ...query }) => {
     try {
       const queries = { raw: true, rest: true };
 
-      const response = await db.car_brand.findAll({ where: query, ...queries });
+      const response = await db.car_brand.findAll({
+        where: query,
+        include: "release_years",
+        // ...queries,
+      });
 
       resolve(response);
     } catch (err) {
