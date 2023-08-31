@@ -14,7 +14,7 @@ const { carRoute } = require("./cars.route");
 const { tokenRoute } = require("./token.route");
 
 const { driverRoute } = require("./driver.route");
-
+const { yearRoute } = require("./release_year.route");
 rootRouter.use("/test", testRouter);
 rootRouter.use("/carbrand", carBrandRoute);
 rootRouter.use("/carseri", carSeriRoute);
@@ -27,7 +27,7 @@ rootRouter.use("/auth", authRouter);
 rootRouter.use("/", userRoute);
 rootRouter.use("/car", carRoute);
 rootRouter.use("/token", tokenRoute);
-
+rootRouter.use("/release-year", yearRoute);
 module.exports = {
   rootRouter,
 };
