@@ -187,13 +187,14 @@ module.exports.getAllCarByIdService = ({ id }) => {
     }
   });
 };
-module.exports.finhCarByUserService = (userUuid, carSeri) => {
+module.exports.finhCarByUserService = (userUuid, carBrand) => {
   return new Promise(async (resolve, reject) => {
     try {
+      console.log(carBrand);
       const cars = await sequelize.query(
         `SELECT * FROM cars 
-         JOIN car_seris ON cars.car_seri_id = car_seris.id 
-         WHERE cars.useruuid = '${userUuid}' AND car_seris.carSeriName LIKE '%${carSeri.car_seri}%'`
+         JOIN car_brands ON cars.car_brand_id = car_brands.id 
+         WHERE cars.useruuid = '${userUuid}' AND car_brands.carBrandName LIKE '%${carBrand.car_brand}%'`
       );
       const uniqueCars = [];
 
