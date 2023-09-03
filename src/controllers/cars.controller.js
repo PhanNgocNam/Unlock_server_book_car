@@ -39,6 +39,7 @@ module.exports.getAllCarController = (req, res, next) => {
 
 module.exports.updateCarController = (req, res, next) => {
   const { id } = req.query;
+
   updateCarService(id, req.body).then(
     (updateCar) => {
       return res.json(updateCar);
@@ -50,6 +51,7 @@ module.exports.updateCarController = (req, res, next) => {
 };
 module.exports.updateIsdeletedCarController = (req, res, next) => {
   const { id } = req.query;
+
   updateIsdeletedCarService(id, req.body).then(
     (updateCar) => {
       return res.json(updateCar);
@@ -60,8 +62,7 @@ module.exports.updateIsdeletedCarController = (req, res, next) => {
   );
 };
 module.exports.findCarByUserController = async (req, res, next) => {
-  const { carname } = req.query;
-
+  const { carname } = req.body;
   finhCarByUserService(req.user.userUuid, carname).then(
     (cars) => res.json({ cars }),
     (err) => next(new Exeptions(err.message, err.status))
