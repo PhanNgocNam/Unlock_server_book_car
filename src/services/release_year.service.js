@@ -23,6 +23,7 @@ module.exports.createYearService = (body) => {
     }
   });
 };
+
 module.exports.getAllYearService = ({ ...query }) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -32,6 +33,26 @@ module.exports.getAllYearService = ({ ...query }) => {
         ...queries,
       });
       resolve(response);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+  });
+};
+
+module.exports.getReleaseYearByBrandUuidService = (brandUuid) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const years = await db.car_brand.findOne({
+        where: { carBrandUuid: brandUuid },
+        include: ["release_years"],
+      });
+      resolve(
+        years.release_years?.map((year) => ({
+          releaseYearID: year.id,
+          brandID: year.car_seri.id,
+          year: year.year,
+        }))
+      );
     } catch (err) {
       reject({ message: err.message });
     }

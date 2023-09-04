@@ -110,6 +110,14 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      release_year: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      brand: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
       isDeleted: {
         allowNull: false,
         type: DataTypes.INTEGER,

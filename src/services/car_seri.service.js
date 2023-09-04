@@ -1,5 +1,6 @@
 const db = require("../models");
 const errorCode = require("../exeption_code/index");
+const { Exeptions } = require("../utils/ExeptionError");
 
 module.exports.carSeriService = (body) => {
   return new Promise(async (resolve, reject) => {
@@ -13,8 +14,11 @@ module.exports.carSeriService = (body) => {
           status: errorCode.carBrandName_has_been_used,
           message: "Car seri name has been used!",
         });
+
       const carSeriName = await db.car_seri.create({
         carSeriName: body.CarSeri,
+        carBrandId: body.carBrandId,
+        yearReleaseId: body.yearReleaseId,
       });
 
       resolve(carSeriName);
@@ -50,6 +54,19 @@ module.exports.getOneCarSeriService = (id) => {
       resolve(response);
     } catch (err) {
       reject({ message: err.message });
+    }
+  });
+};
+
+module.exports.getAllCarSeriByRlyAndBrandService = async (body) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const seris = await db.car_seri.findAll({
+        where: { yearReleaseId: body.rly_id, carBrandId: body.brand_id },
+      });
+      resolve(seris);
+    } catch (err) {
+      reject({ message: message.err });
     }
   });
 };
