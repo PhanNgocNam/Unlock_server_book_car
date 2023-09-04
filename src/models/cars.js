@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       driver,
       car_model,
       car_brand,
+      car_img,
     }) {
       // define association here
       this.belongsTo(user, { foreignKey: "user_id", as: "user" });
@@ -41,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "car_id",
         as: "regis",
       });
+      this.hasMany(car_img, { foreignKey: "carID", as: "imgs" });
     }
 
     toJSON() {

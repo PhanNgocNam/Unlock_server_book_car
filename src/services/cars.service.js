@@ -67,23 +67,26 @@ module.exports.searchCarService = async (q) => {
   });
 };
 
-module.exports.getCarsOfOneUserService = (useUuid) => {
+module.exports.getCarsOfOneUserService = (userUuid) => {
   return new Promise(async (resolve, reject) => {
-    const cars = await db.cars.findAll({
-      where: { userUuid: useUuid },
-      include: [
-        "car_brand",
-        "car_model",
-        "vehicle_type",
-        "license_plate_type",
-        "vehicle_type",
-        "user",
-        "regis",
-      ],
-    });
-    if (cars.length === 0)
-      return reject({ status: 404, message: "You haven't created a car yet!" });
-    resolve(cars);
+    try {
+      const cars = await db.cars.findAll({
+        where: { userUuid: userUuid },
+        include: [
+          "car_brand",
+          "car_model",
+          "vehicle_type",
+          "license_plate_type",
+          "vehicle_type",
+          "user",
+          "regis",
+        ],
+      });
+      resolve(cars);
+    } catch (err) {
+      // console.log("Error", err.name, err.parent.code);
+      reject({ message: err.message });
+    }
   });
 };
 
