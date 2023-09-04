@@ -28,8 +28,8 @@ module.exports.getAllYearController = (req, res, next) => {
 };
 
 module.exports.getReleaseYearByBrandUuidController = (req, res, next) => {
-  const { brandUuid } = req.query;
-  getReleaseYearByBrandUuidService(brandUuid).then(
+  const { brandID } = req.query;
+  getReleaseYearByBrandUuidService(brandID).then(
     (years) => {
       res.json(years);
     },

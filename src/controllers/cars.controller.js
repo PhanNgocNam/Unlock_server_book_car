@@ -5,6 +5,7 @@ const {
   updateCarService,
   updateIsdeletedCarService,
   finhCarByUserService,
+  uploadCarImageService,
 } = require("../services/cars.service");
 const { Exeptions } = require("../utils/ExeptionError");
 const db = require("../models");
@@ -35,6 +36,13 @@ module.exports.getAllCarController = (req, res, next) => {
       return next(new Exeptions(err.message, err.status));
     }
   );
+};
+
+module.exports.uploadCarImageController = (req, res, next) => {
+  // const fromData = new
+  // uploadCarImageService(req.file).then((result) => res.json(result));
+  // res.json(req);
+  // res.json(req.file);
 };
 
 module.exports.updateCarController = (req, res, next) => {
