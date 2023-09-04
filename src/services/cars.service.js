@@ -14,6 +14,8 @@ module.exports.createNewCarService = async (body) => {
           currentLocationInHCM: body.currentLocationInHCM,
           license_plate: body.license_plate,
           phone_owner: body.phone_owner,
+          release_year: body.release_year,
+          brand: body.brand,
           vin_number: body.vin_number,
           user_id: body.user_id,
           car_brand_id: body.car_brand_id,
@@ -99,7 +101,6 @@ module.exports.getAllCarService = ({ ...query }) => {
           "regis",
         ],
       });
-      // db.cars.add;
       resolve(cars);
     } catch (err) {
       reject({ message: err.message });

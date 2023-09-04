@@ -17,11 +17,6 @@ const server = http.createServer(app);
 
 app.use("/api/v1", rootRouter);
 
-app.get("/year/all", async (req, res) => {
-  const y = await db.release_year.findAll({ include: ["brands"] });
-  res.json(y);
-});
-
 const io = new Server(server, {
   cors: {
     origin: "*",

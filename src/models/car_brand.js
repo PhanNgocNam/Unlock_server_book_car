@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       return {
         ...this.get(),
         release_years: this.get("release_years")?.map((year) => ({
-          yearUuid: year.yearUuid,
+          releaseYearID: year.id,
           year: year.year,
         })),
       };
