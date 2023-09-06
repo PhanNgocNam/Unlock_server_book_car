@@ -38,11 +38,27 @@ module.exports.getAllCarController = (req, res, next) => {
   );
 };
 
-module.exports.uploadCarImageController = (req, res, next) => {
-  // const fromData = new
-  // uploadCarImageService(req.file).then((result) => res.json(result));
-  // res.json(req);
-  // res.json(req.file);
+const fs = require("fs").promises;
+module.exports.uploadCarImageController = async (req, res, next) => {
+  const { carID } = req.body;
+
+  uploadCarImageService({ carID, images: [...req.files] }, req).then(
+    (imgs) => {
+      res.json({
+        status: 200,
+        imgs,
+      });
+    },
+    (err) => {
+      setTimeout(() => {
+        req.files?.forEach(async (image) => {
+          await fs.unlink(image.path);
+          await fs.unlink(`public/assets/images/thumb-${image.filename}`);
+        });
+      }, 60 * 1000);
+      next(new Exeptions(err.message, err.status));
+    }
+  );
 };
 
 module.exports.updateCarController = (req, res, next) => {
@@ -56,6 +72,7 @@ module.exports.updateCarController = (req, res, next) => {
     }
   );
 };
+
 module.exports.updateIsdeletedCarController = (req, res, next) => {
   const { id } = req.query;
   updateIsdeletedCarService(id, req.body).then(

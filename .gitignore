@@ -1,5 +1,8 @@
 #node_modules
 node_modules
 
+#docker
 Dockerfile
 
+#images
+public/assets/images

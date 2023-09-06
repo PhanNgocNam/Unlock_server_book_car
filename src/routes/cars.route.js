@@ -10,6 +10,8 @@ const {
 } = require("../controllers/cars.controller");
 const { authenticateToken } = require("../middlewares/authenticateToken");
 const { upload } = require("../utils/multer");
+const { resizeImage } = require("../middlewares/resizeImage");
+const { checkPermission } = require("../middlewares/checkPermission");
 const router = express.Router();
 
 router.post("/create-a-car", createNewCarController);
@@ -24,7 +26,10 @@ router.post("/create-a-car", createNewCarController);
 
 router.post(
   "/upload-car-image",
-  upload.single("file"),
+  authenticateToken,
+  checkPermission([-1, 9]),
+  upload.array("images", 3),
+  resizeImage,
   uploadCarImageController
 );
 

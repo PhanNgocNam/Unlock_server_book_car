@@ -49,7 +49,7 @@ module.exports.getReleaseYearByBrandUuidService = (brandID) => {
       resolve(
         years.release_years?.map((year) => ({
           releaseYearID: year.id,
-          brandID: year.car_seri.id,
+          brandID: Number.parseInt(brandID),
           year: year.year,
         }))
       );

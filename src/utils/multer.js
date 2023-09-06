@@ -1,6 +1,14 @@
 const multer = require("multer");
 const { customeCheckFileType } = require("../middlewares/checkFileType");
-const storage = multer.memoryStorage();
+
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, "public/assets/images/");
+  },
+  filename: (req, file, callback) => {
+    callback(null, Date.now() + `-${file.originalname}`);
+  },
+});
 
 const upload = multer({
   storage,

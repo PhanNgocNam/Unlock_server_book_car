@@ -1,8 +1,6 @@
 const db = require("../models");
 const { sequelize } = require("../models");
 const err_code = require("../exeption_code");
-const { Exeptions } = require("../utils/ExeptionError");
-const { post } = require("../utils/post");
 
 module.exports.createNewCarService = async (body) => {
   return new Promise(async (resolve, reject) => {
@@ -110,12 +108,30 @@ module.exports.getAllCarService = () => {
   });
 };
 
-module.exports.uploadCarImageService = (body) => {
+module.exports.uploadCarImageService = (body, req) => {
   return new Promise(async (resolve, reject) => {
-    const fromData = new FormData();
-    // const respone = await post("image/save", body);
-    // console.log(respone);
-    // resolve(respone);
+    try {
+      const found = await db.cars.count({ where: { id: body.carID } });
+      if (!found) return reject({ status: 404, message: "Xe không tồn tại" });
+      const imgs_1 = body.images?.map((image) => ({
+        carID: body.carID,
+        url: `${req.protocol}://${req.get("host")}/assets/images/${
+          image.filename
+        }`,
+      }));
+
+      const imgs_2 = body.images?.map((image) => ({
+        carID: body.carID,
+        url: `${req.protocol}://${req.get("host")}/assets/images/thumb-${
+          image.filename
+        }`,
+      }));
+
+      const imgs = await db.car_img.bulkCreate([...imgs_1, ...imgs_2]);
+      resolve(imgs);
+    } catch (err) {
+      reject({ message: err.message });
+    }
   });
 };
 
