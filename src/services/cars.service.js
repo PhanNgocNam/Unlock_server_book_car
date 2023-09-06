@@ -67,23 +67,48 @@ module.exports.searchCarService = async (q) => {
   });
 };
 
-module.exports.getCarsOfOneUserService = (useUuid) => {
+module.exports.getCarsOfOneUserService = (useUuid, carname) => {
   return new Promise(async (resolve, reject) => {
-    const cars = await db.cars.findAll({
-      where: { userUuid: useUuid },
-      include: [
-        "car_brand",
-        "car_model",
-        "vehicle_type",
-        "license_plate_type",
-        "vehicle_type",
-        "user",
-        "regis",
-      ],
-    });
-    if (cars.length === 0)
-      return reject({ status: 404, message: "You haven't created a car yet!" });
-    resolve(cars);
+    if (carname === undefined) {
+      const cars = await db.cars.findAll({
+        where: { userUuid: useUuid },
+        include: [
+          "car_brand",
+          "car_model",
+          "vehicle_type",
+          "license_plate_type",
+          "vehicle_type",
+          "user",
+          "regis",
+        ],
+      });
+      if (cars.length === 0)
+        return reject({
+          status: 404,
+          message: "You haven't created a car yet!",
+        });
+      resolve(cars);
+    } else if (carname !== undefined) {
+      var cars = await sequelize.query(
+        `SELECT cars.id, cars.carUuid,cars.isDeleted,currentLocationInHCM,car_brands.carBrandName as car_brand,car_models.carModelName as car_model,vehicle_types.vehicleTypeName as vehicle_type,license_plate,license_plate_types.licensePlateTypeName as license_plate_type,car_seris.carSeriName as car_seri,users.email as user,cars.createdAt as created,cars.updatedAt,car_register_methods.regis_id FROM cars JOIN car_brands ON cars.car_brand_id = car_brands.id JOIN car_models ON cars.car_model_id = car_models.id JOIN users ON cars.user_id = users.id JOIN vehicle_types ON cars.vehicle_type_id = vehicle_types.id JOIN license_plate_types ON cars.car_license_id = license_plate_types.id JOIN car_seris ON cars.carseriid = car_seris.id JOIN car_register_methods ON cars.id = car_register_methods.car_id
+       WHERE cars.useruuid = '${useUuid}' AND car_brands.carBrandName LIKE '%${carname}%'`
+      );
+      if (cars[0].length < 1) {
+        cars = await sequelize.query(
+          `SELECT cars.id, cars.carUuid,cars.isDeleted,currentLocationInHCM,car_brands.carBrandName as car_brand,car_models.carModelName as car_model,vehicle_types.vehicleTypeName as vehicle_type,license_plate,license_plate_types.licensePlateTypeName as license_plate_type,car_seris.carSeriName as car_seri,users.email as user,cars.createdAt as created,cars.updatedAt FROM cars JOIN car_brands ON cars.car_brand_id = car_brands.id JOIN car_models ON cars.car_model_id = car_models.id JOIN users ON cars.user_id = users.id JOIN vehicle_types ON cars.vehicle_type_id = vehicle_types.id JOIN license_plate_types ON cars.car_license_id = license_plate_types.id JOIN car_seris ON cars.carseriid = car_seris.id
+         WHERE cars.useruuid = '${useUuid}' AND car_models.carModelName LIKE '%${carname}%'`
+        );
+      }
+      const uniqueCars = [];
+
+      for (const row of cars[0]) {
+        const existingCarUuids = uniqueCars.map((car) => car.carUuid);
+        if (!existingCarUuids.includes(row.carUuid)) {
+          uniqueCars.push(row);
+        }
+      }
+      resolve(uniqueCars);
+    }
   });
 };
 
@@ -190,12 +215,12 @@ module.exports.finhCarByUserService = (userUuid, car) => {
   return new Promise(async (resolve, reject) => {
     try {
       var cars = await sequelize.query(
-        `SELECT users.email,currentLocationInHCM,car_brands.carBrandName,car_models.carModelName ,vehicle_types.vehicleTypeName,vin_number,phone_owner,license_plate,license_plate_types.licensePlateTypeName FROM cars JOIN car_brands ON cars.car_brand_id = car_brands.id JOIN car_models ON cars.car_model_id = car_models.id JOIN users ON cars.user_id = users.id  JOIN vehicle_types ON cars.vehicle_type_id = vehicle_types.id  JOIN license_plate_types ON cars.car_license_id = license_plate_types.id 
+        `SELECT cars.id, cars.carUuid,cars.isDeleted,currentLocationInHCM,car_brands.carBrandName,car_models.carModelName ,vehicle_types.vehicleTypeName,license_plate,license_plate_types.licensePlateTypeName,car_seris.carSeriName,users.email,cars.createdAt,cars.updatedAt FROM cars JOIN car_brands ON cars.car_brand_id = car_brands.id JOIN car_models ON cars.car_model_id = car_models.id JOIN users ON cars.user_id = users.id  JOIN vehicle_types ON cars.vehicle_type_id = vehicle_types.id  JOIN license_plate_types ON cars.car_license_id = license_plate_types.id  JOIN car_seris ON cars.carseriid = car_seris.id 
          WHERE cars.useruuid = '${userUuid}' AND car_brands.carBrandName LIKE '%${car}%'`
       );
       if (cars[0].length < 1) {
         cars = await sequelize.query(
-          `SELECT users.email,currentLocationInHCM,car_brands.carBrandName,car_models.carModelName ,vehicle_types.vehicleTypeName,vin_number,phone_owner,license_plate,license_plate_types.licensePlateTypeName FROM cars JOIN car_brands ON cars.car_brand_id = car_brands.id JOIN car_models ON cars.car_model_id = car_models.id JOIN users ON cars.user_id = users.id  JOIN vehicle_types ON cars.vehicle_type_id = vehicle_types.id  JOIN license_plate_types ON cars.car_license_id = license_plate_types.id 
+          `SELECT cars.id, cars.carUuid,cars.isDeleted,currentLocationInHCM,car_brands.carBrandName,car_models.carModelName ,vehicle_types.vehicleTypeName,license_plate,license_plate_types.licensePlateTypeName,car_seris.carSeriName,users.email,cars.createdAt,cars.updatedAt FROM cars JOIN car_brands ON cars.car_brand_id = car_brands.id JOIN car_models ON cars.car_model_id = car_models.id JOIN users ON cars.user_id = users.id  JOIN vehicle_types ON cars.vehicle_type_id = vehicle_types.id  JOIN license_plate_types ON cars.car_license_id = license_plate_types.id  JOIN car_seris ON cars.carseriid = car_seris.id 
            WHERE cars.useruuid = '${userUuid}' AND car_models.carModelName LIKE '%${car}%'`
         );
       }
