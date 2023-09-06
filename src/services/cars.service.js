@@ -1,8 +1,6 @@
 const db = require("../models");
-const { Op } = require("sequelize");
 const { sequelize } = require("../models");
 const err_code = require("../exeption_code");
-const { Exeptions } = require("../utils/ExeptionError");
 
 module.exports.createNewCarService = async (body) => {
   return new Promise(async (resolve, reject) => {
@@ -48,24 +46,27 @@ module.exports.createNewCarService = async (body) => {
   });
 };
 
-module.exports.searchCarService = async (q) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const data = await db.cars.findAll({
-        [Op.or]: [
-          { name: { [Op.like]: "%" + q + "%" } },
-          { age: { [Op.like]: "%" + q + "%" } },
-          { country: { [Op.like]: "%" + q + "%" } },
-          { position: { [Op.like]: "%" + q + "%" } },
-          { wage: { [Op.like]: "%" + q + "%" } },
-        ],
-      });
-      resolve(data);
-    } catch (err) {
-      reject(new Exeptions(err.message));
-    }
-  });
-};
+// module.exports.searchCarService = async (q) => {
+//   return new Promise(async (resolve, reject) => {
+//     try {
+//       const data = await db.cars.findAll({
+//         [Op.or]: [
+//           { name: { [Op.like]: "%" + q + "%" } },
+//           { age: { [Op.like]: "%" + q + "%" } },
+//           { country: { [Op.like]: "%" + q + "%" } },
+//           { position: { [Op.like]: "%" + q + "%" } },
+//           { wage: { [Op.like]: "%" + q + "%" } },
+//         ],
+//       });
+//       resolve(data);
+//     } catch (err) {
+//       reject(new Exeptions(err.message));
+//     }
+//   });
+// };
+
+
+
 
 module.exports.getCarsOfOneUserService = (useUuid, carname) => {
   return new Promise(async (resolve, reject) => {
@@ -112,7 +113,8 @@ module.exports.getCarsOfOneUserService = (useUuid, carname) => {
   });
 };
 
-module.exports.getAllCarService = ({ ...query }) => {
+
+module.exports.getAllCarService = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const cars = await db.cars.findAll({
@@ -127,6 +129,33 @@ module.exports.getAllCarService = ({ ...query }) => {
         ],
       });
       resolve(cars);
+    } catch (err) {
+      reject({ message: err.message });
+    }
+  });
+};
+
+module.exports.uploadCarImageService = (body, req) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const found = await db.cars.count({ where: { id: body.carID } });
+      if (!found) return reject({ status: 404, message: "Xe không tồn tại" });
+      const imgs_1 = body.images?.map((image) => ({
+        carID: body.carID,
+        url: `${req.protocol}://${req.get("host")}/assets/images/${
+          image.filename
+        }`,
+      }));
+
+      const imgs_2 = body.images?.map((image) => ({
+        carID: body.carID,
+        url: `${req.protocol}://${req.get("host")}/assets/images/thumb-${
+          image.filename
+        }`,
+      }));
+
+      const imgs = await db.car_img.bulkCreate([...imgs_1, ...imgs_2]);
+      resolve(imgs);
     } catch (err) {
       reject({ message: err.message });
     }
@@ -172,6 +201,7 @@ module.exports.updateCarService = async (id, body) => {
     }
   });
 };
+
 module.exports.updateIsdeletedCarService = async (id, body) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -186,6 +216,7 @@ module.exports.updateIsdeletedCarService = async (id, body) => {
     }
   });
 };
+
 module.exports.getAllCarByIdService = ({ id }) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -204,7 +235,6 @@ module.exports.getAllCarByIdService = ({ id }) => {
           ],
         }
       );
-      // db.cars.add;
       resolve(cars);
     } catch (err) {
       reject({ message: err.message });

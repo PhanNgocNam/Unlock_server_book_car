@@ -5,6 +5,7 @@ const {
   updateCarService,
   updateIsdeletedCarService,
   finhCarByUserService,
+  uploadCarImageService,
 } = require("../services/cars.service");
 const { Exeptions } = require("../utils/ExeptionError");
 const db = require("../models");
@@ -39,6 +40,29 @@ module.exports.getAllCarController = (req, res, next) => {
   );
 };
 
+const fs = require("fs").promises;
+module.exports.uploadCarImageController = async (req, res, next) => {
+  const { carID } = req.body;
+
+  uploadCarImageService({ carID, images: [...req.files] }, req).then(
+    (imgs) => {
+      res.json({
+        status: 200,
+        imgs,
+      });
+    },
+    (err) => {
+      setTimeout(() => {
+        req.files?.forEach(async (image) => {
+          await fs.unlink(image.path);
+          await fs.unlink(`public/assets/images/thumb-${image.filename}`);
+        });
+      }, 60 * 1000);
+      next(new Exeptions(err.message, err.status));
+    }
+  );
+};
+
 module.exports.updateCarController = (req, res, next) => {
   const { id } = req.query;
 
@@ -51,6 +75,7 @@ module.exports.updateCarController = (req, res, next) => {
     }
   );
 };
+
 module.exports.updateIsdeletedCarController = (req, res, next) => {
   const { id } = req.query;
 

@@ -39,17 +39,17 @@ module.exports.getAllYearService = ({ ...query }) => {
   });
 };
 
-module.exports.getReleaseYearByBrandUuidService = (brandUuid) => {
+module.exports.getReleaseYearByBrandUuidService = (brandID) => {
   return new Promise(async (resolve, reject) => {
     try {
       const years = await db.car_brand.findOne({
-        where: { carBrandUuid: brandUuid },
+        where: { id: brandID },
         include: ["release_years"],
       });
       resolve(
         years.release_years?.map((year) => ({
           releaseYearID: year.id,
-          brandID: year.car_seri.id,
+          brandID: Number.parseInt(brandID),
           year: year.year,
         }))
       );

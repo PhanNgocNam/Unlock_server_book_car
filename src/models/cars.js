@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       driver,
       car_model,
       car_brand,
+      car_img,
     }) {
       // define association here
       this.belongsTo(user, { foreignKey: "user_id", as: "user" });
@@ -41,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "car_id",
         as: "regis",
       });
+      this.hasMany(car_img, { foreignKey: "carID", as: "imgs" });
     }
 
     toJSON() {
@@ -49,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
         license_plate_type: this.get("license_plate_type").licensePlateTypeName,
         vehicle_type: this.get("vehicle_type").vehicleTypeName,
         car_model: this.get("car_model").carModelName,
-        car_brand: this.get("car_brand").carBrandName,
+        // car_brand: this.get("car_brand").carBrandName,
         regis: this.get("regis")?.map(
           (regis_method) => regis_method.registerMethodName
         ),
