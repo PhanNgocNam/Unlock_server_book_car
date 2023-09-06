@@ -21,7 +21,9 @@ module.exports.createNewCarController = (req, res, next) => {
 };
 
 module.exports.getCarsOfOneUserController = async (req, res, next) => {
-  getCarsOfOneUserService(req.user.userUuid).then(
+  const { carname } = req.query;
+
+  getCarsOfOneUserService(req.user.userUuid, carname).then(
     (cars) => res.json({ cars }),
     (err) => next(new Exeptions(err.message, err.status))
   );
@@ -87,7 +89,7 @@ module.exports.updateIsdeletedCarController = (req, res, next) => {
   );
 };
 module.exports.findCarByUserController = async (req, res, next) => {
-  const { carname } = req.body;
+  const carname = req.body;
   finhCarByUserService(req.user.userUuid, carname).then(
     (cars) => res.json({ cars }),
     (err) => next(new Exeptions(err.message, err.status))

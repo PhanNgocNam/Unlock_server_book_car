@@ -9,12 +9,6 @@ module.exports.carSeriService = (body) => {
         where: { carSeriName: body.CarSeri },
       });
 
-      if (found)
-        return reject({
-          status: errorCode.carBrandName_has_been_used,
-          message: "Car seri name has been used!",
-        });
-
       const carSeriName = await db.car_seri.create({
         carSeriName: body.CarSeri,
         carBrandId: body.carBrandId,
