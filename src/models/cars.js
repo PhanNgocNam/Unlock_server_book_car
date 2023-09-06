@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
         license_plate_type: this.get("license_plate_type").licensePlateTypeName,
         vehicle_type: this.get("vehicle_type").vehicleTypeName,
         car_model: this.get("car_model").carModelName,
-        car_brand: this.get("car_brand").carBrandName,
+        // car_brand: this.get("car_brand").carBrandName,
         regis: this.get("regis")?.map(
           (regis_method) => regis_method.registerMethodName
         ),
