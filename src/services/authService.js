@@ -15,11 +15,11 @@ module.exports.authService = async (email, password) => {
         message: "Incorrect email ,or you haven't registed yet!",
       });
     const admin = await db.user.findOne({ where: { email } });
-// <<<<<<< DuyTao
-//     const result = await bcrypt.compare(password, admin.password);
-// =======
+    // <<<<<<< DuyTao
+    //     const result = await bcrypt.compare(password, admin.password);
+    // =======
     const result = bcrypt.compareSync(password, admin.password);
-// >>>>>>> main
+    // >>>>>>> main
     if (!result) return reject({ status: 400, message: "Incorrect password!" });
     resolve(admin.dataValues);
   });

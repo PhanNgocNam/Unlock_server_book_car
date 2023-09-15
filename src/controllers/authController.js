@@ -75,7 +75,7 @@ module.exports.registerUserController = (req, res, next) => {
         erorCode.password_not_match
       )
     );
-
+  console.log(req.get("host"));
   registerUserService(email, password, req.protocol, req.get("host")).then(
     (user) => {
       res.json(vi.transSuccess.userCreated(email));

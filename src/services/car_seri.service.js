@@ -66,7 +66,7 @@ module.exports.getAllCarSeriByRlyAndBrandService = async (body) => {
       });
       resolve(seris);
     } catch (err) {
-      reject({ message: message.err });
+      // reject({ message: message.err });
     }
   });
 };
