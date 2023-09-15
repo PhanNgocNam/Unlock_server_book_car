@@ -8,9 +8,9 @@ const {
   uploadCarImageService,
 } = require("../services/cars.service");
 const { Exeptions } = require("../utils/ExeptionError");
-const db = require("../models");
+
 module.exports.createNewCarController = (req, res, next) => {
-  createNewCarService(req.body).then(
+  createNewCarService(req.body, req).then(
     (car) => {
       return res.json({ status: 200, message: "success!" });
     },
@@ -88,6 +88,7 @@ module.exports.updateIsdeletedCarController = (req, res, next) => {
     }
   );
 };
+
 module.exports.findCarByUserController = async (req, res, next) => {
   const carname = req.body;
   finhCarByUserService(req.user.userUuid, carname).then(

@@ -15,6 +15,10 @@ const { tokenRoute } = require("./token.route");
 
 const { driverRoute } = require("./driver.route");
 const { yearRoute } = require("./release_year.route");
+const { findCarsRouter } = require("./find_cars.route");
+const { tripRoute } = require("./trip.route");
+const { serchRoute } = require("./search.route");
+
 rootRouter.use("/test", testRouter);
 rootRouter.use("/carbrand", carBrandRoute);
 rootRouter.use("/carseri", carSeriRoute);
@@ -28,6 +32,9 @@ rootRouter.use("/", userRoute);
 rootRouter.use("/car", carRoute);
 rootRouter.use("/token", tokenRoute);
 rootRouter.use("/release-year", yearRoute);
+rootRouter.use("/car/search", findCarsRouter);
+rootRouter.use("/trip", tripRoute);
+rootRouter.use("/search", serchRoute);
 
 module.exports = {
   rootRouter,

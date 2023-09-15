@@ -1,0 +1,302 @@
+[
+  {
+    "ref_id": "vm:ADDRESS:1CCFE0420795382A",
+    "address": "Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "name": "69 Đường Nguyễn Văn Bảo",
+    "display": "69 Đường Nguyễn Văn Bảo Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "boundaries": [
+      {
+        "type": 2,
+        "id": 790284,
+        "name": "4",
+        "prefix": "Phường",
+        "full_name": "Phường 4"
+      },
+      {
+        "type": 1,
+        "id": 3852,
+        "name": "Gò Vấp",
+        "prefix": "Quận",
+        "full_name": "Quận Gò Vấp"
+      },
+      {
+        "type": 0,
+        "id": 12,
+        "name": "Hồ Chí Minh",
+        "prefix": "Thành Phố",
+        "full_name": "Thành Phố Hồ Chí Minh"
+      }
+    ],
+    "categories": []
+  },
+  {
+    "ref_id": "vm:ADDRESS:7E3A94950B7218D2",
+    "address": "Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "name": "31 Đường Nguyễn Văn Bảo",
+    "display": "31 Đường Nguyễn Văn Bảo Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "boundaries": [
+      {
+        "type": 2,
+        "id": 790284,
+        "name": "4",
+        "prefix": "Phường",
+        "full_name": "Phường 4"
+      },
+      {
+        "type": 1,
+        "id": 3852,
+        "name": "Gò Vấp",
+        "prefix": "Quận",
+        "full_name": "Quận Gò Vấp"
+      },
+      {
+        "type": 0,
+        "id": 12,
+        "name": "Hồ Chí Minh",
+        "prefix": "Thành Phố",
+        "full_name": "Thành Phố Hồ Chí Minh"
+      }
+    ],
+    "categories": []
+  },
+  {
+    "ref_id": "vm:ADDRESS:C898B2C56F6C43E5",
+    "address": "Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "name": "65 Đường Nguyễn Văn Bảo",
+    "display": "65 Đường Nguyễn Văn Bảo Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "boundaries": [
+      {
+        "type": 2,
+        "id": 790284,
+        "name": "4",
+        "prefix": "Phường",
+        "full_name": "Phường 4"
+      },
+      {
+        "type": 1,
+        "id": 3852,
+        "name": "Gò Vấp",
+        "prefix": "Quận",
+        "full_name": "Quận Gò Vấp"
+      },
+      {
+        "type": 0,
+        "id": 12,
+        "name": "Hồ Chí Minh",
+        "prefix": "Thành Phố",
+        "full_name": "Thành Phố Hồ Chí Minh"
+      }
+    ],
+    "categories": []
+  },
+  {
+    "ref_id": "vm:ADDRESS:A901B03FA3B47E89",
+    "address": "Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "name": "71 Đường Nguyễn Văn Bảo",
+    "display": "71 Đường Nguyễn Văn Bảo Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "boundaries": [
+      {
+        "type": 2,
+        "id": 790284,
+        "name": "4",
+        "prefix": "Phường",
+        "full_name": "Phường 4"
+      },
+      {
+        "type": 1,
+        "id": 3852,
+        "name": "Gò Vấp",
+        "prefix": "Quận",
+        "full_name": "Quận Gò Vấp"
+      },
+      {
+        "type": 0,
+        "id": 12,
+        "name": "Hồ Chí Minh",
+        "prefix": "Thành Phố",
+        "full_name": "Thành Phố Hồ Chí Minh"
+      }
+    ],
+    "categories": []
+  },
+  {
+    "ref_id": "vm:ADDRESS:DD5E1689F02A83E7",
+    "address": "Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "name": "33 Đường Nguyễn Văn Bảo",
+    "display": "33 Đường Nguyễn Văn Bảo Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "boundaries": [
+      {
+        "type": 2,
+        "id": 790284,
+        "name": "4",
+        "prefix": "Phường",
+        "full_name": "Phường 4"
+      },
+      {
+        "type": 1,
+        "id": 3852,
+        "name": "Gò Vấp",
+        "prefix": "Quận",
+        "full_name": "Quận Gò Vấp"
+      },
+      {
+        "type": 0,
+        "id": 12,
+        "name": "Hồ Chí Minh",
+        "prefix": "Thành Phố",
+        "full_name": "Thành Phố Hồ Chí Minh"
+      }
+    ],
+    "categories": []
+  },
+  {
+    "ref_id": "vm:ADDRESS:8927665E32E5F9E6",
+    "address": "Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "name": "10 Đường Nguyễn Văn Bảo",
+    "display": "10 Đường Nguyễn Văn Bảo Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "boundaries": [
+      {
+        "type": 2,
+        "id": 790284,
+        "name": "4",
+        "prefix": "Phường",
+        "full_name": "Phường 4"
+      },
+      {
+        "type": 1,
+        "id": 3852,
+        "name": "Gò Vấp",
+        "prefix": "Quận",
+        "full_name": "Quận Gò Vấp"
+      },
+      {
+        "type": 0,
+        "id": 12,
+        "name": "Hồ Chí Minh",
+        "prefix": "Thành Phố",
+        "full_name": "Thành Phố Hồ Chí Minh"
+      }
+    ],
+    "categories": []
+  },
+  {
+    "ref_id": "vm:ADDRESS:A68E3D2AB141B1DB",
+    "address": "Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "name": "1 Đường Nguyễn Văn Bảo",
+    "display": "1 Đường Nguyễn Văn Bảo Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "boundaries": [
+      {
+        "type": 2,
+        "id": 790284,
+        "name": "4",
+        "prefix": "Phường",
+        "full_name": "Phường 4"
+      },
+      {
+        "type": 1,
+        "id": 3852,
+        "name": "Gò Vấp",
+        "prefix": "Quận",
+        "full_name": "Quận Gò Vấp"
+      },
+      {
+        "type": 0,
+        "id": 12,
+        "name": "Hồ Chí Minh",
+        "prefix": "Thành Phố",
+        "full_name": "Thành Phố Hồ Chí Minh"
+      }
+    ],
+    "categories": []
+  },
+  {
+    "ref_id": "vm:ADDRESS:84F7210CFC7CEBF4",
+    "address": "Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "name": "6 Đường Nguyễn Văn Bảo",
+    "display": "6 Đường Nguyễn Văn Bảo Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "boundaries": [
+      {
+        "type": 2,
+        "id": 790284,
+        "name": "4",
+        "prefix": "Phường",
+        "full_name": "Phường 4"
+      },
+      {
+        "type": 1,
+        "id": 3852,
+        "name": "Gò Vấp",
+        "prefix": "Quận",
+        "full_name": "Quận Gò Vấp"
+      },
+      {
+        "type": 0,
+        "id": 12,
+        "name": "Hồ Chí Minh",
+        "prefix": "Thành Phố",
+        "full_name": "Thành Phố Hồ Chí Minh"
+      }
+    ],
+    "categories": []
+  },
+  {
+    "ref_id": "vm:ADDRESS:3FBF95BAA9303471",
+    "address": "Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "name": "9 Đường Nguyễn Văn Bảo",
+    "display": "9 Đường Nguyễn Văn Bảo Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "boundaries": [
+      {
+        "type": 2,
+        "id": 790284,
+        "name": "4",
+        "prefix": "Phường",
+        "full_name": "Phường 4"
+      },
+      {
+        "type": 1,
+        "id": 3852,
+        "name": "Gò Vấp",
+        "prefix": "Quận",
+        "full_name": "Quận Gò Vấp"
+      },
+      {
+        "type": 0,
+        "id": 12,
+        "name": "Hồ Chí Minh",
+        "prefix": "Thành Phố",
+        "full_name": "Thành Phố Hồ Chí Minh"
+      }
+    ],
+    "categories": []
+  },
+  {
+    "ref_id": "vm:ADDRESS:B7B72A676C7BE536",
+    "address": "Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "name": "45 Đường Nguyễn Văn Bảo",
+    "display": "45 Đường Nguyễn Văn Bảo Phường 4,Quận Gò Vấp,Thành Phố Hồ Chí Minh",
+    "boundaries": [
+      {
+        "type": 2,
+        "id": 790284,
+        "name": "4",
+        "prefix": "Phường",
+        "full_name": "Phường 4"
+      },
+      {
+        "type": 1,
+        "id": 3852,
+        "name": "Gò Vấp",
+        "prefix": "Quận",
+        "full_name": "Quận Gò Vấp"
+      },
+      {
+        "type": 0,
+        "id": 12,
+        "name": "Hồ Chí Minh",
+        "prefix": "Thành Phố",
+        "full_name": "Thành Phố Hồ Chí Minh"
+      }
+    ],
+    "categories": []
+  }
+]

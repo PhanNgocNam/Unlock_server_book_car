@@ -9,10 +9,8 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: DataTypes.INTEGER });
      */
-    await queryInterface.addColumn("car_register_methods", "res_car_uuid", {
-      type: DataTypes.STRING,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
+    await queryInterface.addColumn("cars", "suggested_price", {
+      type: DataTypes.INTEGER,
     });
   },
 
@@ -23,6 +21,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.removeColumn("car_register_methods", "res_car_uuid");
+    await queryInterface.removeColumn("cars", "suggested_price");
   },
 };

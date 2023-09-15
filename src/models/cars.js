@@ -17,17 +17,20 @@ module.exports = (sequelize, DataTypes) => {
       car_model,
       car_brand,
       car_img,
+      car_seri,
+      profile_img,
     }) {
       // define association here
+      this.belongsTo(car_seri, { foreignKey: "car_seri_id", as: "seri" });
       this.belongsTo(user, { foreignKey: "user_id", as: "user" });
       this.belongsTo(car_brand, {
         foreignKey: "car_brand_id",
         as: "car_brand",
       });
-      this.belongsTo(car_model, {
-        foreignKey: "car_model_id",
-        as: "car_model",
-      });
+      // this.belongsTo(car_model, {
+      //   foreignKey: "car_model_id",
+      //   as: "car_model",
+      // });
       this.belongsTo(vehicle_type, {
         foreignKey: "vehicle_type_id",
         as: "vehicle_type",
@@ -37,12 +40,16 @@ module.exports = (sequelize, DataTypes) => {
         as: "license_plate_type",
       });
       this.hasOne(driver, { foreignKey: "car_id", as: "driver" });
+      this.hasMany(profile_img, {
+        foreignKey: "car_profile_id",
+        as: "profile_img",
+      });
       this.belongsToMany(registration_method, {
         through: "car_register_method",
         foreignKey: "car_id",
         as: "regis",
       });
-      this.hasMany(car_img, { foreignKey: "carID", as: "imgs" });
+      this.hasMany(car_img, { foreignKey: "car_img_id", as: "imgs" });
     }
 
     toJSON() {
@@ -50,17 +57,19 @@ module.exports = (sequelize, DataTypes) => {
         ...this.get(),
         license_plate_type: this.get("license_plate_type").licensePlateTypeName,
         vehicle_type: this.get("vehicle_type").vehicleTypeName,
-        car_model: this.get("car_model").carModelName,
-        // car_brand: this.get("car_brand").carBrandName,
+        // car_model: this.get("car_model").carModelName,
+        car_brand: this.get("car_brand").carBrandName,
+        seri: this.get("seri").carSeriName,
         regis: this.get("regis")?.map(
           (regis_method) => regis_method.registerMethodName
         ),
         user: this.get("user").email,
         user_id: undefined,
         car_brand_id: undefined,
-        car_model_id: undefined,
+
         vehicle_type_id: undefined,
         car_license_id: undefined,
+        car_seri_id: undefined,
       };
     }
   }
@@ -77,6 +86,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       currentLocationInHCM: {
         allowNull: false,
+        type: DataTypes.STRING,
+      },
+      car_classification: {
         type: DataTypes.STRING,
       },
       license_plate: {
@@ -106,19 +118,17 @@ module.exports = (sequelize, DataTypes) => {
             validate(
               value,
               /\b[A-HJ-NPR-Z0-9]{17}\b/,
-              "Số khung không hợp lệ!",
+              "Số Vin không hợp lệ!",
               400
             );
           },
         },
       },
-      release_year: {
-        allowNull: false,
-        type: DataTypes.STRING,
+      suggested_price: {
+        type: DataTypes.INTEGER,
       },
-      brand: {
-        allowNull: false,
-        type: DataTypes.STRING,
+      specials: {
+        type: DataTypes.JSON,
       },
       isDeleted: {
         allowNull: false,
