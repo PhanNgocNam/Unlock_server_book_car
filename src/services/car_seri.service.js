@@ -16,9 +16,8 @@ module.exports.carSeriService = (body) => {
         });
 
       const carSeriName = await db.car_seri.create({
-        carSeriName: body.CarSeri,
-        carBrandId: body.carBrandId,
-        yearReleaseId: body.yearReleaseId,
+        carSeriName: body.car_seri,
+        car_brand_id: body.car_brand_id,
       });
 
       resolve(carSeriName);
@@ -66,7 +65,7 @@ module.exports.getAllCarSeriByRlyAndBrandService = async (body) => {
       });
       resolve(seris);
     } catch (err) {
-      reject({ message: message.err });
+      reject({ message: err.message });
     }
   });
 };

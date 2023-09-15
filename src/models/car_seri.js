@@ -7,8 +7,10 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ cars }) {
+    static associate({ cars, car_brand }) {
       // define association here
+      this.hasMany(cars, { foreignKey: "car_seri_id", as: "cars" });
+      this.belongsTo(car_brand, { foreignKey: "car_brand_id", as: "brand" });
     }
   }
   car_seri.init(
@@ -28,8 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      carBrandId: { allowNull: false, type: DataTypes.INTEGER },
-      yearReleaseId: { allowNull: false, type: DataTypes.INTEGER },
+      car_brand_id: { allowNull: false, type: DataTypes.INTEGER },
       isDeleted: {
         allowNull: false,
         type: DataTypes.INTEGER,

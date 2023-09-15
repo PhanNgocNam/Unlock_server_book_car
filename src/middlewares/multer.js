@@ -1,9 +1,12 @@
 const multer = require("multer");
-const { customeCheckFileType } = require("../middlewares/checkFileType");
-
+const { customeCheckFileType } = require("./checkFileType");
+const fs = require("fs");
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, "public/assets/images/");
+    const folder = req.path === "/upload-car-image" ? "cars" : "profiles";
+    const path = `public/assets/images/${folder}/`;
+    fs.mkdirSync(path, { recursive: true });
+    callback(null, path);
   },
   filename: (req, file, callback) => {
     callback(null, Date.now() + `-${file.originalname}`);

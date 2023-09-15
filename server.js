@@ -28,10 +28,14 @@ const io = new Server(server, {
 
 app.use(handleError);
 
+// const { Sequelize } = require("sequelize");
+// const sequelize = new Sequelize(process.env.DATABASE_URL);
+
 server.listen(process.env.PORT, async () => {
   try {
     await sequelize.authenticate();
     // await sequelize.sync({ force: true });
+    // await sequelize.sync({ alert: true });
     console.log(`Server is running on port ${process.env.PORT}`);
   } catch (err) {
     console.log(`Oops. Something went wrong: ${err}`);

@@ -1,32 +1,39 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class release_year extends Model {
+  class cars_have_5g extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ car_brand }) {
+    static associate(models) {
       // define association here
     }
   }
-  release_year.init(
+  cars_have_5g.init(
     {
-      yearUuid: {
+      license_plate: {
         allowNull: false,
         type: DataTypes.STRING,
-        defaultValue: DataTypes.UUIDV4,
       },
-      year: {
-        type: DataTypes.STRING,
+      lat: {
         allowNull: false,
+        type: DataTypes.STRING,
+      },
+      lng: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      time: {
+        allowNull: false,
+        type: DataTypes.DATE,
       },
     },
     {
       sequelize,
-      modelName: "release_year",
+      modelName: "cars_have_5g",
     }
   );
-  return release_year;
+  return cars_have_5g;
 };
